@@ -1,0 +1,41 @@
+{
+  "name": "homebuyer-reality-check",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "next build",
+    "start": "serve out --listen 3000",
+    "lint": "oxlint src scripts",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/lib/budget.test.ts",
+    "smoke": "node scripts/browser-smoke.mjs"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "jspdf": "^3.0.3",
+    "leaflet": "^1.9.4",
+    "motion": "^12.23.24",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "serve": "^14.2.6",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.14",
+    "@types/leaflet": "^1.9.21",
+    "@types/node": "^22.18.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/three": "^0.180.0",
+    "oxfmt": "latest",
+    "oxlint": "latest",
+    "playwright": "^1.56.0",
+    "tailwindcss": "^4.1.14",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}

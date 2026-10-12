@@ -1,0 +1,13 @@
+{
+  "station": "Woodstock SAPS",
+  "category": "Residential break-ins",
+  "periodConvention": "July\u2013June reporting years",
+  "periods": ["21/22", "22/23", "23/24", "24/25", "25/26"],
+  "counts": [196, 201, 224, 138, 116],
+  "source": "https://capetowndata.com/en/reports/crime/woodstock/",
+  "underlyingSource": "SAPS quarterly station statistics",
+  "releaseDate": "2026-08-28",
+  "retrievedAt": "2026-10-12",
+  "scope": "Woodstock precinct; not a street or individual property",
+  "verification": "Secondary aggregation; primary SAPS download unavailable during retrieval"
+}
