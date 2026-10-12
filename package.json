@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
-    "jspdf": "^3.0.3",
+    "jspdf": "^4.2.1",
     "leaflet": "^1.9.4",
     "motion": "^12.23.24",
     "next": "^16.0.0",
