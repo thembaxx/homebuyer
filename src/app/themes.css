@@ -6,6 +6,11 @@
   --theme-text-muted: #667254;
   --theme-border: #dfe4d4;
 }
+:root:not([data-js='enabled']) .landing [style*='opacity:0'],
+:root:not([data-js='enabled']) .landing [style*='opacity: 0'] {
+  opacity: 1 !important;
+  transform: none !important;
+}
 :root[data-theme='dark'] {
   color-scheme: dark;
   --bg: #121810;

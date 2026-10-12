@@ -120,6 +120,10 @@ try {
     /do not assign an address-level safety score/,
   );
   await document.goto(base);
+  assert.equal(
+    await document.locator('.hero-copy').evaluate((element) => getComputedStyle(element).opacity),
+    '1',
+  );
   const schema = JSON.parse(
     await document.locator('script[type="application/ld+json"]').textContent(),
   );

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
-    "jspdf": "^3.0.3",
+    "jspdf": "^4.2.1",
     "leaflet": "^1.9.4",
     "motion": "^12.23.24",
     "next": "^16.0.0",
@@ -38,5 +38,8 @@
     "tailwindcss": "^4.1.14",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "compression": "^1.8.2"
   }
 }
