@@ -1,27 +1,51 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { brand } from '@/lib/brand';
+import { siteOrigin, pageMetadata } from '@/lib/site';
+import { themeBootstrap } from '@/lib/theme';
+import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
+import './themes.css';
+import './editorial.css';
 
 export const metadata: Metadata = {
-  metadataBase: process.env.NEXT_PUBLIC_SITE_URL
-    ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
-    : undefined,
-  title: "HomeBuyer — Your home's reality check",
-  description:
-    'See beyond the listing. South African property due diligence, ongoing ownership costs, local evidence and saved comparisons. Reports from R99–R299.',
+  ...pageMetadata('South African Property Due Diligence', brand.description, '/', '/index.md'),
+  metadataBase: siteOrigin ? new URL(siteOrigin) : undefined,
+  title: {
+    default: `${brand.productName} | South African Property Due Diligence`,
+    template: `%s | ${brand.name}`,
+  },
+  applicationName: brand.productName,
+  category: 'property due diligence',
+  manifest: '/manifest.webmanifest',
   icons: { icon: '/icon.svg', apple: '/icon.svg' },
-  openGraph: {
-    title: 'Fall for the home. Know the reality.',
-    description: 'Evidence before emotion. Property intelligence for South African homebuyers.',
-    images: process.env.NEXT_PUBLIC_SITE_URL ? ['/images/hero-house.jpg'] : [],
-    locale: 'en_ZA',
-    type: 'website',
+  robots: {
+    index: Boolean(siteOrigin),
+    follow: true,
+    googleBot: {
+      index: Boolean(siteOrigin),
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
+export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-ZA">
-      <body>{children}</body>
+    <html lang={brand.language} suppressHydrationWarning>
+      <head>
+        <script id="theme-bootstrap" dangerouslySetInnerHTML={{ __html: themeBootstrap }} />
+        <link rel="describedby" type="text/plain" href="/llms.txt" />
+      </head>
+      <body>
+        <ThemeProvider>
+          <a className="skip-link" href="#main-content">
+            Skip to content
+          </a>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

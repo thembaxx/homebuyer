@@ -40,6 +40,41 @@ social metadata. No API keys are required.
 - Viewing checklist and downloadable multi-page PDFs with source links and scope.
 - Native modal focus trapping, mobile bottom navigation, reduced-motion support,
   map/WebGL/search fallback states and browser back navigation for report tabs.
+- Light, Dark and System themes, remembered across visits and synced between tabs.
+- Public methodology and ownership-cost guide, metadata, structured data, social
+  preview image, robots, sitemap and AI-readable Markdown documentation.
+
+## Brand, SEO and AI discovery
+
+The current working name is **HomeBuyer Reality Check**. The researched creative
+shortlist and recommendation are in [docs/brand-direction.md](docs/brand-direction.md).
+Change `src/lib/brand.ts` to update visible branding, metadata, the manifest, PDF
+headers and AI documentation together. The storage keys remain stable.
+
+Set `NEXT_PUBLIC_SITE_URL` to the real public origin before the production build.
+It must be an HTTP(S) origin without a path, query, fragment or credentials.
+Without it, public preview pages are marked `noindex`, canonical URLs are omitted,
+and the sitemap is empty. With it, public pages receive absolute canonical and
+social URLs and the sitemap includes `/`, `/methodology/` and
+`/guides/home-ownership-costs/`. `/check/` always stays `noindex`; no personal
+addresses, budget inputs or saved reports enter the public discovery files.
+
+The site exposes `/llms.txt`, `/llms-full.txt`, an equivalent `/LLM.txt` alias and
+Markdown versions at `/index.md`, `/methodology/index.md` and
+`/guides/home-ownership-costs/index.md`. The content follows the
+[llms.txt proposal](https://llmstxt.org/) and is generated from the same brand and
+editorial sources as the public pages. These files provide context; they are not
+a promise that a search or AI provider will index or cite the site.
+
+Structured data describes the actual free MVP and intended future report range.
+It contains no invented reviews, ratings or business contact information. The
+1200×630 social preview is generated locally at `/social-preview/og.png`.
+
+Theme controls appear in the landing, report and documentation headers. System
+mode follows `prefers-color-scheme`, including changes while the app is open.
+A small pre-paint script applies a stored preference before rendering. The
+preference is saved under `homebuyer:theme`; browser storage failures still allow
+theme switching for the current visit.
 
 ## Validation
 
@@ -55,6 +90,9 @@ The calculator tests verify a known bond repayment, zero-interest and full-depos
 cases, return-commute costs and coordinate-based distance. The browser smoke test
 is in `scripts/browser-smoke.mjs` and uses an installed Chromium executable; run
 it against a production preview with `npm run smoke`.
+`npm run smoke:discovery` verifies theme persistence, device and tab sync,
+responsive theme controls, dark dialogs, public crawl files, social images,
+server-rendered documentation and the workspace’s indexing policy.
 
 ## Data and honest boundaries
 

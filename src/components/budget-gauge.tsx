@@ -28,7 +28,11 @@ export function BudgetGauge({
             y1={y1}
             x2={x2}
             y2={y2}
-            stroke={(i / bars) * 100 < percent ? '#75864c' : '#dcdfce'}
+            stroke={
+              (i / bars) * 100 < percent
+                ? 'var(--gauge-active, #75864c)'
+                : 'var(--gauge-rest, #dcdfce)'
+            }
             strokeWidth="4.5"
             initial={{ opacity: 0.2 }}
             animate={{ opacity: 1 }}
@@ -36,7 +40,7 @@ export function BudgetGauge({
           />
         );
       })}
-      <circle cx="120" cy="116" r="4" fill="#75864c" />
+      <circle cx="120" cy="116" r="4" fill="var(--gauge-active, #75864c)" />
     </svg>
   );
 }

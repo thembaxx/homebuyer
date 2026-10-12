@@ -1,6 +1,7 @@
 import { budgetLines, monthlyTotal, rand, type SavedReport } from './budget';
 import { checklist, sources, distanceKm, distanceLabel } from './data';
 import crime from './crime-snapshot.json';
+import { brand } from './brand';
 
 export async function downloadReport(report: SavedReport) {
   const { jsPDF } = await import('jspdf');
@@ -18,7 +19,7 @@ export async function downloadReport(report: SavedReport) {
     doc.text(lines, 20, y);
     y += lines.length * size * 0.45 + 5;
   };
-  line('HomeBuyer', 26);
+  line(brand.name, 26);
   line('THE REALITY CHECK', 10, '#737b65');
   y += 6;
   line(p.address, 21);
@@ -110,7 +111,7 @@ export async function downloadReport(report: SavedReport) {
     doc.setFontSize(8);
     doc.setTextColor('#858a7d');
     doc.text(
-      `HomeBuyer | Evidence before emotion.                                           ${i} / ${doc.getNumberOfPages()}`,
+      `${brand.name} | ${brand.tagline}                                           ${i} / ${doc.getNumberOfPages()}`,
       20,
       287,
     );

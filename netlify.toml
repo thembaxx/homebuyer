@@ -11,6 +11,26 @@ for = "/fonts/*"
 Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
+for = "/*"
+[headers.values]
+Link = '</llms.txt>; rel="describedby"'
+
+[[headers]]
+for = "/check/*"
+[headers.values]
+X-Robots-Tag = "noindex, follow"
+
+[[headers]]
+for = "/*.md"
+[headers.values]
+Content-Type = "text/markdown; charset=utf-8"
+
+[[headers]]
+for = "/LLM.txt"
+[headers.values]
+Link = '</llms.txt>; rel="canonical"'
+
+[[headers]]
 for = "/_next/static/*"
 [headers.values]
 Cache-Control = "public, max-age=31536000, immutable"

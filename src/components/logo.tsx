@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import { brand } from '@/lib/brand';
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <Link href="/" className="brand" aria-label="HomeBuyer home">
+    <Link href="/" className="brand" aria-label={`${brand.name} home`}>
       <svg
         className="brand-icon"
         width="42"
@@ -44,7 +45,8 @@ export function Logo({ compact = false }: { compact?: boolean }) {
       </svg>
       {!compact && (
         <span>
-          HomeBuyer<span className="brand-dot">.</span>
+          {brand.name}
+          <span className="brand-dot">.</span>
         </span>
       )}
     </Link>

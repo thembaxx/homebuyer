@@ -37,6 +37,8 @@ import {
   Receipt,
 } from '@phosphor-icons/react';
 import { Logo } from './logo';
+import { ThemePicker } from './theme-picker';
+import { brand } from '@/lib/brand';
 import { AddressSearch } from './address-search';
 import { BudgetGauge } from './budget-gauge';
 import { BudgetEditor } from './budget-editor';
@@ -509,7 +511,7 @@ export function ReportWorkspace() {
             Check the details.
           </p>
           <Link href="/#how-it-works">
-            Meet HomeBuyer
+            Meet {brand.name}
             <ArrowUpRight size={17} />
           </Link>
         </div>
@@ -517,7 +519,7 @@ export function ReportWorkspace() {
           <span>🇿🇦 Built for South Africa</span>
           <small>Your homes stay in this browser.</small>
           <Link href="/">
-            Back to HomeBuyer <ArrowUpRight size={14} />
+            Back to {brand.name} <ArrowUpRight size={14} />
           </Link>
         </div>
       </aside>
@@ -536,10 +538,11 @@ export function ReportWorkspace() {
             <kbd>⌕</kbd>
           </button>
           <span className="local-avatar" aria-label="Local browser workspace">
-            HB
+            {brand.initials}
           </span>
+          <ThemePicker />
         </header>
-        <main className="workspace-content">
+        <main className="workspace-content" id="main-content" tabIndex={-1}>
           {view === 'report' ? (
             <>
               <div className="workspace-title">
@@ -1073,7 +1076,9 @@ export function ReportWorkspace() {
             </>
           )}
           <footer className="workspace-footer">
-            <span>HomeBuyer’s Reality Check · Evidence before emotion.</span>
+            <span>
+              {brand.productName} · {brand.tagline}
+            </span>
             <button onClick={() => navigate('report', 'evidence')}>
               Data & methodology
               <ArrowUpRight size={14} />
