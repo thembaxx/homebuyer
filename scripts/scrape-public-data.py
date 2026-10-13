@@ -94,6 +94,14 @@ result = {
     'scope': 'Woodstock precinct, including Observatory; not a street or individual property',
     'verification': 'Secondary aggregation; primary SAPS download unavailable during retrieval',
 }
+def format_snapshot(data):
+    text = json.dumps(data, indent=2, ensure_ascii=True) + '\n'
+    return re.sub(
+        r'\[\n\s+((?:"[^"]*"|\d+)(?:,\n\s+(?:"[^"]*"|\d+))*)\n\s+\]',
+        lambda match: '[' + ', '.join(part.strip() for part in match.group(1).split(',')) + ']',
+        text,
+    )
+
 target = pathlib.Path(__file__).resolve().parents[1] / 'src/lib/crime-snapshot.json'
-target.write_text(json.dumps(result, indent=2) + '\n')
+target.write_text(format_snapshot(result))
 print(f'Updated {target.name}: {len(pairs)} attributed reporting periods. Review before use.')
