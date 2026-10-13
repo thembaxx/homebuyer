@@ -57,6 +57,7 @@ import {
   sources,
   distanceKm,
   distanceLabel,
+  municipalityFor,
   type Property,
 } from '@/lib/data';
 import crime from '@/lib/crime-snapshot.json';
@@ -220,8 +221,9 @@ export function ReportWorkspace() {
     total = monthlyTotal(budget);
   const ratio = budget.income > 0 ? Math.round((total / budget.income) * 100) : 0;
   const hasSaved = saved.some((r) => r.property.id === property.id);
-  const isCapeTown = property.city === 'Cape Town';
+  const profile = municipalityFor(property);
   const hasCrime = property.id === 'observatory';
+  const crimePeak = Math.max(...crime.counts);
   const crimeChange = Math.round(((crime.counts[4] - crime.counts[3]) / crime.counts[3]) * 100);
   const localPanel = (
     <section className="panel local-panel">
@@ -312,34 +314,49 @@ export function ReportWorkspace() {
           </span>
           <span className="tag muted">MUNICIPAL FINANCES</span>
         </div>
-        <h2>{property.municipality || 'Your municipality'}</h2>
-        {isCapeTown ? (
+        <h2>{profile?.name || property.municipality || 'Your municipality'}</h2>
+        {profile ? (
           <>
-            <div className="audit-result">
-              <CheckCircle size={23} weight="fill" />
-              <strong>Clean audit</strong>
-              <span>FY 2023/24</span>
+            <div className={`audit-result ${profile.tone}`}>
+              {profile.tone === 'clean' ? (
+                <CheckCircle size={23} weight="fill" />
+              ) : (
+                <Info size={23} />
+              )}
+              <strong>{profile.opinionLabel}</strong>
+              <span>{profile.year}</span>
             </div>
-            <p>
-              One useful signal of financial governance.
-              <br />A starting point for your questions.
-            </p>
-            <div className="audit-years">
-              {['2021/22', '2022/23', '2023/24'].map((y) => (
-                <div key={y}>
-                  <Check size={17} />
-                  <span>{y}</span>
-                </div>
-              ))}
-            </div>
+            <p>{profile.summary}</p>
+            {profile.years && (
+              <div className="audit-years">
+                {profile.years.map((y) => (
+                  <div key={y}>
+                    <Check size={17} />
+                    <span>{y}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            {profile.detail && <p>{profile.detail}</p>}
             <p className="panel-note">
-              Dated audit evidence. An audit outcome does not guarantee services or future municipal
-              performance.
+              Dated audit evidence for the municipality, not this stand. An audit outcome does not
+              guarantee services or future municipal performance.
             </p>
-            <a href={sources.audit} target="_blank" rel="noreferrer" className="source-link">
-              City of Cape Town · FY 2023/24 release
+            <a href={profile.source} target="_blank" rel="noreferrer" className="source-link">
+              {profile.sourceLabel}
               <ArrowUpRight size={16} />
             </a>
+            {profile.extraSource && profile.extraSourceLabel && (
+              <a
+                href={profile.extraSource}
+                target="_blank"
+                rel="noreferrer"
+                className="source-link"
+              >
+                {profile.extraSourceLabel}
+                <ArrowUpRight size={16} />
+              </a>
+            )}
           </>
         ) : (
           <>
@@ -354,7 +371,7 @@ export function ReportWorkspace() {
           </>
         )}
         <a
-          href={isCapeTown ? sources.treasury : 'https://municipalmoney.gov.za/'}
+          href={profile?.treasury || 'https://municipalmoney.gov.za/'}
           target="_blank"
           rel="noreferrer"
           className="source-link"
@@ -386,14 +403,23 @@ export function ReportWorkspace() {
               {crime.counts.map((count, i) => (
                 <div key={crime.periods[i]}>
                   <span>{count}</span>
-                  <i style={{ height: `${(count / 224) * 76}px` }} />
+                  <i style={{ height: `${(count / crimePeak) * 76}px` }} />
                   <small>{crime.periods[i]}</small>
                 </div>
               ))}
             </div>
+            <div className="crime-mix">
+              {crime.categories.map((item) => (
+                <div key={item.name}>
+                  <span>{item.name}</span>
+                  <strong>{item.count}</strong>
+                </div>
+              ))}
+            </div>
             <p className="panel-note">
-              July–June periods. Cape Town Data’s aggregation of SAPS station records; release 28
-              Aug 2026. Primary download was unavailable during verification.
+              {crime.latestLabel}. Cape Town Data’s aggregation of SAPS station records for{' '}
+              {crime.coverage}; release 28 Aug 2026. Break-ins in the chart are homes only. Primary
+              download was unavailable during verification.
             </p>
             <a href={crime.source} target="_blank" rel="noreferrer" className="source-link">
               View trend source & category definitions
@@ -402,8 +428,8 @@ export function ReportWorkspace() {
           </>
         ) : (
           <p>
-            A verified station time series is not available for this address. Confirm your police
-            precinct and compare matching periods in SAPS releases.
+            {property.stationNote ||
+              'A verified station time series is not available for this address. Confirm your police precinct and compare matching periods in SAPS releases.'}
           </p>
         )}
         <div className="context-warning">
@@ -645,7 +671,7 @@ export function ReportWorkspace() {
                         <section>
                           <small>MUNICIPAL EVIDENCE</small>
                           <strong>
-                            {isCapeTown ? 'Clean audit · 2023/24' : 'Audit requires verification'}
+                            {profile ? profile.insight : 'Audit requires verification'}
                           </strong>
                         </section>
                         <button
@@ -661,9 +687,7 @@ export function ReportWorkspace() {
                         </span>
                         <section>
                           <small>CRIME CONTEXT</small>
-                          <strong>
-                            {hasCrime ? 'Woodstock precinct' : 'Confirm local precinct'}
-                          </strong>
+                          <strong>{property.station || 'Confirm local precinct'}</strong>
                         </section>
                         <button
                           aria-label="View police precinct evidence"
@@ -844,11 +868,11 @@ export function ReportWorkspace() {
                           ],
                           [
                             'Municipal finances',
-                            'Dated public audit evidence for the Cape Town example. Financial collection and tariff percentages are not estimated or invented.',
+                            'Dated AGSA audit opinions for Cape Town, Johannesburg, eThekwini and Tshwane in 2023/24. Other municipalities still need a manual check. Not a bill for this stand.',
                           ],
                           [
                             'Police statistics',
-                            'Woodstock residential break-ins, July–June periods, from a secondary aggregation of SAPS station records. Not an address-level safety measure.',
+                            'Woodstock residential break-ins and the seven recorded categories for July 2025–June 2026, from a secondary aggregation of SAPS station records. Not an address-level safety measure.',
                           ],
                           [
                             'What needs more data',

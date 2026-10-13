@@ -35,15 +35,16 @@ export const methodologySections: EditorialSection[] = [
   {
     title: 'Municipal evidence has a date',
     paragraphs: [
-      'The Cape Town example cites the City’s published clean audit for financial year 2023/24 and links to National Treasury Municipal Money. We do not describe this older audit as the latest available outcome.',
+      'The Cape Town example cites the City’s published clean audit for financial year 2023/24 and links to National Treasury Municipal Money. AGSA’s 2023-24 report records Johannesburg and eThekwini as unqualified with findings, and Tshwane as a qualified opinion. We do not describe any of these as a newer outcome than 2023/24.',
       'An audit opinion is evidence about financial governance for a reporting period. It does not guarantee service delivery, infrastructure condition, tariffs or future municipal performance. A verified audit snapshot is not available for every municipality in this MVP.',
     ],
   },
   {
     title: 'Police records describe a precinct',
     paragraphs: [
-      `The Observatory example uses Woodstock SAPS. Its residential break-in series is a secondary aggregation of SAPS records published by Cape Town Data, retrieved ${crime.retrievedAt}, with release date ${crime.releaseDate}. Reporting periods run July–June.`,
+      `The Observatory example uses Woodstock SAPS. Cape Town Data says that station covers Woodstock, Salt River, Observatory and Walmer Estate. Its residential break-in series, and the seven recorded categories for the latest July–June year, are a secondary aggregation of SAPS records, retrieved ${crime.retrievedAt}, with release date ${crime.releaseDate}. Reporting periods run July–June.`,
       'The primary SAPS download was unavailable during retrieval. The report makes that verification limit visible and links to both the aggregation and official SAPS statistics.',
+      'Parkview SAPS is the named station near the Parkhurst example, and Brooklyn SAPS in Pretoria near the Menlo Park example, using OpenStreetMap locations. No verified time series is stored for those stations. Umhlanga is left without a station until the boundary is confirmed.',
       'Precinct counts do not measure the safety of an individual street or property. We do not assign an address-level safety score. Compare the same crime category and reporting period, verify the precinct, visit at different times and speak to neighbours and the local community policing forum.',
     ],
   },
@@ -119,7 +120,11 @@ export const ownershipSections: EditorialSection[] = [
 
 export const evidenceLinks = [
   { label: 'City of Cape Town audit release · FY 2023/24', href: sources.audit },
-  { label: 'National Treasury Municipal Money', href: sources.treasury },
+  { label: 'AGSA · Western Cape 2023-24', href: sources.westernCape },
+  { label: 'AGSA · City of Johannesburg 2023-24', href: sources.johannesburg },
+  { label: 'AGSA · eThekwini Metro 2023-24', href: sources.ethekwini },
+  { label: 'AGSA · Gauteng 2023-24, including Tshwane', href: sources.gauteng },
+  { label: 'National Treasury Municipal Money · Cape Town', href: sources.treasury },
   { label: 'Cape Town Data · Woodstock series and category definitions', href: crime.source },
   { label: 'South African Police Service · official crime statistics', href: sources.police },
   {

@@ -105,14 +105,21 @@ exclude transfer duty, conveyancing and bond-registration fees.
 
 The Cape Town example cites the [City’s FY 2023/24 clean-audit release](https://www.capetown.gov.za/media-and-news/mayor-welcomes-cape-town-s-clean-audit-from-ag/)
 and [National Treasury Municipal Money](https://municipalmoney.gov.za/profiles/municipality-CPT-cape-town/).
-Audit evidence is explicitly dated and does not guarantee service delivery.
+Johannesburg, eThekwini and Tshwane examples use the Auditor-General’s 2023-24 MFMA
+report: unqualified with findings for Johannesburg and eThekwini, and a qualified
+opinion for Tshwane. Audit evidence is explicitly dated and does not guarantee
+service delivery. Addresses outside these four metros still say the audit must be
+checked.
 
-Woodstock residential break-ins use [Cape Town Data’s aggregation of SAPS records](https://capetowndata.com/en/reports/crime/woodstock/),
-retrieved 12 October 2026, with the release date and July–June reporting periods
+Woodstock residential break-ins, plus the seven recorded categories for July
+2025–June 2026, use [Cape Town Data’s aggregation of SAPS records](https://capetowndata.com/en/reports/crime/woodstock/),
+retrieved 13 October 2026, with the release date and July–June reporting periods
 stored in `src/lib/crime-snapshot.json`. Primary SAPS downloads were unavailable
 during retrieval. These are precinct counts, never street-level risk scores.
-The Observatory example uses Woodstock SAPS; no invented “Observatory SAPS”
-station is assigned.
+The Observatory example uses Woodstock SAPS, which also covers Salt River,
+Observatory and Walmer Estate. Parkhurst is labelled Parkview SAPS and Menlo Park
+is labelled Brooklyn SAPS from OpenStreetMap station pins, without a crime series.
+Umhlanga has no station assigned.
 
 Refresh the public numeric snapshot with:
 

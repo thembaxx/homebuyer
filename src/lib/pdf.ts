@@ -1,5 +1,5 @@
 import { budgetLines, monthlyTotal, rand, type SavedReport } from './budget';
-import { checklist, sources, distanceKm, distanceLabel } from './data';
+import { checklist, distanceKm, distanceLabel, municipalityFor, sources } from './data';
 import crime from './crime-snapshot.json';
 import { brand } from './brand';
 
@@ -60,20 +60,22 @@ export async function downloadReport(report: SavedReport) {
       10,
     );
   line('Municipal evidence', 17);
+  const profile = municipalityFor(p);
   line(
-    p.city === 'Cape Town'
-      ? 'City of Cape Town: clean audit for FY 2023/24, as reported by the City. This is a dated governance indicator, not a guarantee of service delivery.'
+    profile
+      ? `${profile.name}: ${profile.opinionLabel} for ${profile.year}. ${profile.summary}`
       : 'No verified municipal audit snapshot is available for this location. Check National Treasury Municipal Money.',
     10,
   );
-  doc.textWithLink('National Treasury Municipal Money', 20, y, {
-    url: p.city === 'Cape Town' ? sources.treasury : 'https://municipalmoney.gov.za/',
+  if (profile?.detail) line(profile.detail, 9);
+  doc.textWithLink(profile?.sourceLabel || 'National Treasury Municipal Money', 20, y, {
+    url: profile?.source || 'https://municipalmoney.gov.za/',
   });
   y += 10;
-  if (p.city === 'Cape Town') {
-    doc.textWithLink('City audit source: FY 2023/24', 20, y, { url: sources.audit });
-    y += 10;
-  }
+  doc.textWithLink('National Treasury Municipal Money', 20, y, {
+    url: profile?.treasury || 'https://municipalmoney.gov.za/',
+  });
+  y += 10;
   line('Crime context', 17);
   line(
     `${p.station || 'Police precinct requires verification'}. Station statistics cover a precinct and do not measure the safety of an individual street. No address-level crime score is assigned.`,
@@ -82,17 +84,22 @@ export async function downloadReport(report: SavedReport) {
   if (p.id === 'observatory') {
     line('Residential break-ins recorded at Woodstock SAPS, July-June reporting years:', 10);
     crime.periods.forEach((period, i) =>
-      line(`${period}: ${crime.counts[i]} reported incidents`, 10),
+      line(`${period}: ${crime.counts[i]} reported residential break-ins`, 10),
+    );
+    line(`${crime.latestLabel} recorded categories at the same station:`, 10);
+    crime.categories.forEach((item) =>
+      line(`${item.name}: ${item.count} (prior year ${item.prior})`, 10),
     );
     line(
-      `Secondary aggregation by Cape Town Data of SAPS records. Release ${crime.releaseDate}; retrieved ${crime.retrievedAt}. Primary SAPS download unavailable during verification. No street-level inference.`,
+      `Covers ${crime.coverage}. Secondary aggregation by Cape Town Data of SAPS records. Release ${crime.releaseDate}; retrieved ${crime.retrievedAt}. Primary SAPS download unavailable during verification. No street-level inference.`,
       9,
     );
     doc.textWithLink('Crime series and category definitions', 20, y, { url: crime.source });
     y += 10;
   } else {
     line(
-      'A verified station time series is unavailable here. Check SAPS releases, confirm the precinct and compare like-for-like periods and categories.',
+      p.stationNote ||
+        'A verified station time series is unavailable here. Check SAPS releases, confirm the precinct and compare like-for-like periods and categories.',
       10,
     );
   }

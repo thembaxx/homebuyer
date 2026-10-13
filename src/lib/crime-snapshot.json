@@ -2,12 +2,70 @@
   "station": "Woodstock SAPS",
   "category": "Residential break-ins",
   "periodConvention": "July\u2013June reporting years",
-  "periods": ["21/22", "22/23", "23/24", "24/25", "25/26"],
-  "counts": [196, 201, 224, 138, 116],
+  "periods": [
+    "21/22",
+    "22/23",
+    "23/24",
+    "24/25",
+    "25/26"
+  ],
+  "counts": [
+    196,
+    201,
+    224,
+    138,
+    116
+  ],
+  "allTypes": [
+    2407,
+    2738,
+    2568,
+    2367,
+    2380
+  ],
+  "latestLabel": "July 2025\u2013June 2026",
+  "categories": [
+    {
+      "name": "Theft",
+      "count": 784,
+      "prior": 805
+    },
+    {
+      "name": "Car crime",
+      "count": 726,
+      "prior": 656
+    },
+    {
+      "name": "Robbery",
+      "count": 471,
+      "prior": 497
+    },
+    {
+      "name": "Assault",
+      "count": 231,
+      "prior": 211
+    },
+    {
+      "name": "Residential break-ins",
+      "count": 116,
+      "prior": 138
+    },
+    {
+      "name": "Sexual offences",
+      "count": 38,
+      "prior": 49
+    },
+    {
+      "name": "Murder",
+      "count": 14,
+      "prior": 11
+    }
+  ],
   "source": "https://capetowndata.com/en/reports/crime/woodstock/",
   "underlyingSource": "SAPS quarterly station statistics",
   "releaseDate": "2026-08-28",
-  "retrievedAt": "2026-10-12",
-  "scope": "Woodstock precinct; not a street or individual property",
+  "retrievedAt": "2026-10-13",
+  "coverage": "Woodstock, Salt River, Observatory and Walmer Estate",
+  "scope": "Woodstock precinct, including Observatory; not a street or individual property",
   "verification": "Secondary aggregation; primary SAPS download unavailable during retrieval"
 }

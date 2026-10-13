@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { MagnifyingGlass, ArrowUpRight, MapPin, CircleNotch, X } from '@phosphor-icons/react';
-import { properties, type Property } from '@/lib/data';
+import { properties, withMunicipality, type Property } from '@/lib/data';
 
 type PhotonFeature = {
   geometry: { coordinates: [number, number] };
@@ -69,7 +69,7 @@ export function AddressSearch({
             .map((f) => {
               const v = f.properties;
               const [lng, lat] = f.geometry.coordinates;
-              return {
+              return withMunicipality({
                 id: `osm-${v.osm_id}`,
                 address: [v.housenumber, v.street || v.name].filter(Boolean).join(' ') || query,
                 suburb: v.locality || v.district || v.city || v.state || 'South Africa',
@@ -83,7 +83,7 @@ export function AddressSearch({
                 image: '/images/hero-house.jpg',
                 amenities: [],
                 example: false,
-              };
+              });
             }),
         );
       } catch {
