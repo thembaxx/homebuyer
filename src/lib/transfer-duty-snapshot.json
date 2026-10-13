@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "publisher": "South African Revenue Service",
+  "source": "https://www.sars.gov.za/tax-rates/transfer-duty/",
+  "scopeSource": "https://www.sars.gov.za/types-of-tax/transfer-duty/",
+  "effectiveFrom": "2026-04-01",
+  "taxYear": "2027",
+  "sourceUpdatedAt": "2026-02-25",
+  "retrievedAt": "2026-10-13",
+  "retrievalMethod": "Official SARS public page verified through web research; direct automated download returned HTTP 403.",
+  "note": "SARS states no changes from the table effective 1 April 2025. Confirm the acquisition date, taxable value and any exemption with your conveyancer. VAT transactions may be exempt from transfer duty.",
+  "brackets": [
+    { "above": 0, "base": 0, "rate": 0 },
+    { "above": 1210000, "base": 0, "rate": 0.03 },
+    { "above": 1663800, "base": 13614, "rate": 0.06 },
+    { "above": 2329300, "base": 53544, "rate": 0.08 },
+    { "above": 2994800, "base": 106784, "rate": 0.11 },
+    { "above": 13310000, "base": 1241456, "rate": 0.13 }
+  ]
+}

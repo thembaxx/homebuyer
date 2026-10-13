@@ -10,8 +10,11 @@
     "format": "oxfmt .",
     "format:check": "oxfmt --check .",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/*.test.ts",
+    "test": "tsx --test src/lib/*.test.ts && python3 -m unittest discover -s scripts -p 'test_*.py'",
+    "data:refresh": "python3 scripts/refresh-enrichment.py",
+    "data:check": "python3 scripts/refresh-enrichment.py --check",
     "smoke": "node scripts/browser-smoke.mjs",
+    "smoke:enrichment": "node scripts/enrichment-smoke.mjs",
     "smoke:discovery": "node scripts/discovery-smoke.mjs"
   },
   "dependencies": {

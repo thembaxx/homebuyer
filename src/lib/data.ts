@@ -1,3 +1,5 @@
+import { financialYear, municipalSnapshot, type MunicipalEvidence } from './municipal-evidence';
+
 export type Amenity = {
   name: string;
   category: 'health' | 'transport' | 'green' | 'shop';
@@ -22,6 +24,8 @@ export type MunicipalProfile = {
   extraSource?: string;
   extraSourceLabel?: string;
   treasury: string;
+  code: string;
+  evidence: MunicipalEvidence;
 };
 export type Property = {
   id: string;
@@ -62,86 +66,97 @@ export const sources = {
   crime: 'https://capetowndata.com/en/reports/crime/woodstock/',
 };
 
-export const municipalities: MunicipalProfile[] = [
+const metroCatalog = [
+  { code: 'CPT', id: 'cape-town', name: 'City of Cape Town', match: ['cape town'] },
   {
-    id: 'cape-town',
-    name: 'City of Cape Town',
-    match: ['cape town'],
-    opinionLabel: 'Clean audit',
-    insight: 'Clean audit · 2023/24',
-    year: 'FY 2023/24',
-    tone: 'clean',
-    summary:
-      'The City reported a clean audit for 2023/24. AGSA’s Western Cape chapter says Cape Town has sustained a clean audit each year since moving on from an unqualified opinion with findings in 2020/21.',
-    years: ['2021/22', '2022/23', '2023/24'],
-    source: sources.audit,
-    sourceLabel: 'City of Cape Town · FY 2023/24 release',
-    treasury: sources.treasury,
-  },
-  {
+    code: 'JHB',
     id: 'johannesburg',
     name: 'City of Johannesburg',
-    match: [
-      'johannesburg',
-      'sandton',
-      'randburg',
-      'roodepoort',
-      'soweto',
-      'midrand',
-      'rosebank',
-      'alexandra',
-    ],
-    opinionLabel: 'Unqualified with findings',
-    insight: 'Unqualified · 2023/24',
-    year: 'FY 2023/24',
-    tone: 'findings',
-    summary:
-      'AGSA records an unqualified opinion with findings for 2023-24, unchanged from the year before. There were findings on the performance report and on compliance with legislation.',
-    detail:
-      'The same municipal page says the City took an average of 311 days to pay creditors, and that 92% of municipal debt was unlikely to be recovered. Those are metro-wide indicators, not this property’s account.',
-    source: sources.johannesburg,
-    sourceLabel: 'AGSA · City of Johannesburg 2023-24',
-    treasury: sources.johannesburgTreasury,
+    match: ['johannesburg', 'sandton', 'randburg', 'roodepoort', 'soweto', 'midrand', 'alexandra'],
   },
   {
+    code: 'ETH',
     id: 'ethekwini',
     name: 'eThekwini Municipality',
     match: ['ethekwini', 'durban', 'umhlanga', 'pinetown'],
-    opinionLabel: 'Unqualified with findings',
-    insight: 'Unqualified · 2023/24',
-    year: 'FY 2023/24',
-    tone: 'findings',
-    summary:
-      'AGSA’s 2023-24 eThekwini table records an unqualified opinion with findings. The five-year table shows that same opinion each year from 2019/20 to 2023/24, and no clean audit in that period.',
-    source: sources.ethekwini,
-    sourceLabel: 'AGSA · eThekwini Metro 2023-24',
-    treasury: sources.ethekwiniTreasury,
   },
   {
+    code: 'TSH',
     id: 'tshwane',
     name: 'City of Tshwane',
-    match: ['tshwane', 'pretoria', 'centurion', 'menlo'],
-    opinionLabel: 'Qualified opinion',
-    insight: 'Qualified · 2023/24',
-    year: 'FY 2023/24',
-    tone: 'qualified',
-    summary:
-      'AGSA’s 2023-24 Gauteng report says the City of Tshwane received a qualified opinion, with fewer qualification areas than before.',
-    detail:
-      'The metros performance chapter says Tshwane has disclosed significant doubt about its ability to continue as a going concern for four years or more. That is a municipal finance warning, not a comment on one house.',
-    source: sources.gauteng,
-    sourceLabel: 'AGSA · Gauteng 2023-24',
-    extraSource: sources.metros,
-    extraSourceLabel: 'AGSA · metro financial performance',
-    treasury: sources.tshwaneTreasury,
+    match: ['tshwane', 'pretoria', 'centurion'],
+  },
+  {
+    code: 'BUF',
+    id: 'buffalo-city',
+    name: 'Buffalo City Metropolitan Municipality',
+    match: ['buffalo city', 'east london', 'bhisho', 'bisho', 'king williams town', 'qonce'],
+  },
+  {
+    code: 'EKU',
+    id: 'ekurhuleni',
+    name: 'City of Ekurhuleni',
+    match: [
+      'ekurhuleni',
+      'germiston',
+      'boksburg',
+      'benoni',
+      'kempton park',
+      'alberton',
+      'brakpan',
+      'springs',
+      'edenvale',
+    ],
+  },
+  {
+    code: 'MAN',
+    id: 'mangaung',
+    name: 'Mangaung Metropolitan Municipality',
+    match: ['mangaung', 'bloemfontein', 'botshabelo', 'thaba nchu'],
+  },
+  {
+    code: 'NMA',
+    id: 'nelson-mandela-bay',
+    name: 'Nelson Mandela Bay Metropolitan Municipality',
+    match: ['nelson mandela bay', 'gqeberha', 'port elizabeth', 'kariega', 'uitenhage', 'despatch'],
   },
 ];
 
+export const municipalities: MunicipalProfile[] = metroCatalog.map((metro) => {
+  const evidence = municipalSnapshot.municipalities[metro.code];
+  const latest = evidence.audits[0];
+  const tone: AuditTone =
+    latest.code === 'unqualified'
+      ? 'clean'
+      : latest.code === 'unqualified_emphasis_of_matter'
+        ? 'findings'
+        : 'qualified';
+  const opinionLabel = latest.code === 'unqualified' ? 'Clean audit' : latest.label;
+  return {
+    ...metro,
+    evidence,
+    tone,
+    opinionLabel,
+    insight: `${opinionLabel} · ${financialYear(latest.year)}`,
+    year: `FY ${financialYear(latest.year)}`,
+    summary: `National Treasury’s submitted audit dataset records “${latest.label}” for ${financialYear(latest.year)}, the latest audit period available in this snapshot. Read the underlying audit report for findings and qualifications.`,
+    source: evidence.source,
+    sourceLabel: 'National Treasury · Municipal Money audit dataset',
+    treasury: evidence.source,
+  };
+});
+
+// Geocoder city labels are an indication, not a verified municipal boundary.
+// Exact labels prevent Rosebank (Cape Town), Westville and "Menlo" collisions.
 export function municipalityFor(property: Pick<Property, 'city' | 'suburb' | 'municipalityId'>) {
   if (property.municipalityId)
     return municipalities.find((item) => item.id === property.municipalityId);
-  const hay = `${property.suburb} ${property.city}`.toLowerCase();
-  return municipalities.find((item) => item.match.some((key) => hay.includes(key)));
+  const city = property.city
+    .toLowerCase()
+    .trim()
+    .replace(/[’']/g, '')
+    .replace(/\s+/g, ' ');
+  return municipalities.find((item) => item.match.includes(city));
 }
 
 export function withMunicipality(property: Property): Property {

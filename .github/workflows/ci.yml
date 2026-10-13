@@ -16,12 +16,21 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
       - run: npm ci
       - run: npm run format:check
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run test
       - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Verify enrichment in the exported site
+        run: |
+          NO_UPDATE_CHECK=1 npx serve out --listen 3000 > "$RUNNER_TEMP/homebuyer-preview.log" 2>&1 &
+          curl --fail --silent --retry 20 --retry-delay 1 --retry-connrefused --max-time 1 http://localhost:3000/ > /dev/null
+          npm run smoke:enrichment
       - uses: actions/upload-artifact@v4
         with:
           name: homebuyer-static-site

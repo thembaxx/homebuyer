@@ -1,0 +1,194 @@
+{
+  "geography": {
+    "geo_code": "CPT",
+    "category": "A",
+    "short_name": "Cape Town",
+    "province_name": "Western Cape"
+  },
+  "audit_opinions": {
+    "values": [
+      {
+        "date": 2024,
+        "rating": "unqualified",
+        "report_url": "https://lg.treasury.gov.za/supportingdocs/CPT/CPT_Audit%20Report_2024_Y_20241212T111309Z_yolande_zeelie.pdf",
+        "result": "Unqualified - No findings"
+      },
+      {
+        "date": 2023,
+        "rating": "unqualified",
+        "report_url": "https://lg.treasury.gov.za/supportingdocs/CPT/CPT_Audit%20Report_2023_Y_20240209T114722Z_yolande_zeelie.pdf",
+        "result": "Unqualified - No findings"
+      },
+      {
+        "date": 2022,
+        "rating": "unqualified",
+        "report_url": "https://lg.treasury.gov.za/supportingdocs/CPT/CPT_Audit%20Report_2022_Y_20221201T123245Z_yolande_zeelie.pdf",
+        "result": "Unqualified - No findings"
+      },
+      {
+        "date": 2021,
+        "rating": "unqualified_emphasis_of_matter",
+        "report_url": "https://lg.treasury.gov.za/supportingdocs/CPT/CPT_Audit%20Report_2021_Y_20220221T084731Z_5039.pdf",
+        "result": "Unqualified - Emphasis of Matter items"
+      }
+    ]
+  },
+  "indicators": {
+    "cash_balance": {
+      "result_type": "R",
+      "formula_v2": {
+        "text": "= Cash available at year end"
+      },
+      "values": [
+        {
+          "cube_version": "v2",
+          "date": 2024,
+          "rating": "good",
+          "result": 12624410780.0
+        },
+        {
+          "cube_version": "v2",
+          "date": 2023,
+          "rating": "good",
+          "result": 7737083379.0
+        }
+      ]
+    },
+    "cash_coverage": {
+      "result_type": "months",
+      "formula_v2": {
+        "text": "= Cash available at year end / Operating Expenditure per month"
+      },
+      "values": [
+        {
+          "cube_version": "v2",
+          "date": 2024,
+          "rating": "ave",
+          "result": 2.6
+        },
+        {
+          "cube_version": "v2",
+          "date": 2023,
+          "rating": "ave",
+          "result": 1.8
+        }
+      ]
+    },
+    "current_ratio": {
+      "result_type": "ratio",
+      "formula_v2": {
+        "text": "= Current Assets / Current Liabilities"
+      },
+      "values": [
+        {
+          "amount_type": "AUDA",
+          "assets": 22519616988.0,
+          "cube_version": "v2",
+          "date": 2024,
+          "liabilities": 15154137847.0,
+          "rating": "ave",
+          "result": 1.49,
+          "year": 2024
+        },
+        {
+          "amount_type": "AUDA",
+          "assets": 20402203327.0,
+          "cube_version": "v2",
+          "date": 2023,
+          "liabilities": 12285145491.0,
+          "rating": "good",
+          "result": 1.66,
+          "year": 2023
+        }
+      ]
+    },
+    "current_debtors_collection_rate": {
+      "result_type": "%",
+      "formula_v2": {
+        "text": "= (Collected Revenue / Billed Revenue) * 100"
+      },
+      "values": [
+        {
+          "amount_type": "AUDA",
+          "cube_version": "v2",
+          "date": "2024",
+          "rating": "bad",
+          "result": 91.87,
+          "year": 2024
+        },
+        {
+          "amount_type": "AUDA",
+          "cube_version": "v2",
+          "date": "2023",
+          "rating": "good",
+          "result": 94.62,
+          "year": 2023
+        }
+      ]
+    },
+    "operating_budget_spending": {
+      "result_type": "%",
+      "formula_v2": {
+        "text": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100"
+      },
+      "values": [
+        {
+          "cube_version": "v2",
+          "date": 2024,
+          "overunder": "under",
+          "rating": "good",
+          "result": -4.2
+        },
+        {
+          "cube_version": "v2",
+          "date": 2023,
+          "overunder": "under",
+          "rating": "good",
+          "result": -4.2
+        }
+      ]
+    },
+    "capital_budget_spending": {
+      "result_type": "%",
+      "formula_v2": {
+        "text": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100"
+      },
+      "values": [
+        {
+          "cube_version": "v2",
+          "date": 2024,
+          "overunder": "under",
+          "rating": "bad",
+          "result": -17.27
+        },
+        {
+          "cube_version": "v2",
+          "date": 2023,
+          "overunder": "under",
+          "rating": "ave",
+          "result": -11.72
+        }
+      ]
+    },
+    "repairs_maintenance_spending": {
+      "result_type": "%",
+      "formula_v2": {
+        "text": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100"
+      },
+      "values": [
+        {
+          "cube_version": "v2",
+          "date": 2024,
+          "rating": "bad",
+          "result": 2.02
+        },
+        {
+          "cube_version": "v2",
+          "date": 2023,
+          "rating": "bad",
+          "result": 2.98
+        }
+      ]
+    }
+  }
+}

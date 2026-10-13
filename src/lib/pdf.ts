@@ -2,6 +2,14 @@ import { budgetLines, monthlyTotal, rand, type SavedReport } from './budget';
 import { checklist, distanceKm, distanceLabel, municipalityFor, sources } from './data';
 import crime from './crime-snapshot.json';
 import { brand } from './brand';
+import {
+  financialYear,
+  indicatorDefinitions,
+  indicatorDisplay,
+  municipalSnapshot,
+  snapshotNeedsRefresh,
+} from './municipal-evidence';
+import { transferDuty, transferDutyEvidence } from './purchase-costs';
 
 export async function downloadReport(report: SavedReport) {
   const { jsPDF } = await import('jspdf');
@@ -43,6 +51,25 @@ export async function downloadReport(report: SavedReport) {
     `Commute: ${b.destination || 'destination not specified'}, ${b.commuteKm} km one way, ${b.workdays} days/month, R${b.costPerKm.toFixed(2)}/km. Distance and costs are assumptions; no traffic-time estimate.`,
     9,
   );
+  const today = new Date().toISOString().slice(0, 10);
+  const acquisitionDate = b.acquisitionDate ?? today;
+  const duty = b.transferDutyExempt ? null : transferDuty(b.price, acquisitionDate);
+  line('Once-off deposit and duty estimate', 17);
+  line(
+    `Deposit: ${rand((b.price * b.deposit) / 100)}. Acquisition agreement date: ${acquisitionDate || 'not supplied'}.`,
+    10,
+  );
+  line(
+    duty === null
+      ? 'Transfer duty not estimated: possible VAT/exemption, unsupported acquisition date, or stale table. Confirm with your conveyancer.'
+      : `Transfer duty: ${rand(duty)}. Deposit + duty subtotal: ${rand((b.price * b.deposit) / 100 + duty)}. Purchase price is assumed to be the taxable value.`,
+    10,
+  );
+  line(
+    `SARS table effective ${transferDutyEvidence.effectiveFrom}; source updated ${transferDutyEvidence.sourceUpdatedAt}; retrieved ${transferDutyEvidence.retrievedAt}. This subtotal excludes conveyancing, bond registration, VAT, moving and other fees. Confirm tax treatment and taxable value with your conveyancer.`,
+    9,
+  );
+  line(transferDutyEvidence.source, 8);
   y += 3;
   line('Nearby places', 17);
   for (const place of p.amenities) {
@@ -68,6 +95,32 @@ export async function downloadReport(report: SavedReport) {
     10,
   );
   if (profile?.detail) line(profile.detail, 9);
+  if (profile) {
+    if (!p.example)
+      line(
+        'Municipality matched from the city label; confirm the boundary against the seller’s municipal account.',
+        9,
+      );
+    for (const audit of profile.evidence.audits) {
+      line(`FY ${financialYear(audit.year)}: ${audit.label}`, 10);
+      if (audit.reportUrl) line(audit.reportUrl, 8);
+    }
+    line('Municipality-wide financial indicators', 14);
+    for (const definition of indicatorDefinitions) {
+      const indicator = profile.evidence.indicators[definition.key];
+      const latest = indicator.values[0];
+      line(
+        `${definition.label}: ${indicatorDisplay(latest?.value ?? null, indicator.unit)}${latest ? ` (FY ${financialYear(latest.year)})` : ''}. ${definition.explanation}${latest?.note ? ` ${latest.note}` : ''}`,
+        10,
+      );
+    }
+    line(
+      `National Treasury publisher update: ${profile.evidence.publisherUpdate}; exact publication date not supplied. Retrieved ${municipalSnapshot.retrievedAt}. ${municipalSnapshot.verification}`,
+      9,
+    );
+    if (snapshotNeedsRefresh(municipalSnapshot.retrievedAt))
+      line('Snapshot retrieved more than 90 days ago. Check the source for updates.', 9);
+  }
   doc.textWithLink(profile?.sourceLabel || 'National Treasury Municipal Money', 20, y, {
     url: profile?.source || 'https://municipalmoney.gov.za/',
   });

@@ -15,6 +15,8 @@ export type Budget = {
   costPerKm: number;
   destination: string;
   income: number;
+  acquisitionDate?: string;
+  transferDutyExempt?: boolean;
 };
 export type SavedReport = {
   property: Property;

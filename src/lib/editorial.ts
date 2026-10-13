@@ -1,6 +1,8 @@
 import { brand } from './brand';
 import { sources } from './data';
 import crime from './crime-snapshot.json';
+import { municipalSnapshot } from './municipal-evidence';
+import { transferDutyEvidence } from './purchase-costs';
 
 export type EditorialSection = { title: string; paragraphs: string[]; points?: string[] };
 export const methodologySections: EditorialSection[] = [
@@ -35,8 +37,18 @@ export const methodologySections: EditorialSection[] = [
   {
     title: 'Municipal evidence has a date',
     paragraphs: [
-      'The Cape Town example cites the City’s published clean audit for financial year 2023/24 and links to National Treasury Municipal Money. AGSA’s 2023-24 report records Johannesburg and eThekwini as unqualified with findings, and Tshwane as a qualified opinion. We do not describe any of these as a newer outcome than 2023/24.',
+      `National Treasury Municipal Money provides audit history and seven financial indicators for all eight metropolitan municipalities. The latest audit in this snapshot is financial year 2023/24. Retrieved ${municipalSnapshot.retrievedAt}; the publisher supplies a quarter update notice, not an exact publication date. Each indicator retains its own reporting year, source unit and missing values.`,
+      'Financial indicators cover cash balance, cash coverage, the current ratio, revenue collection, operating and capital budget variance, and repairs and maintenance. Negative budget variance means underspending. Source values outside an expected range remain visible with a verification note. Treasury says its latest data is being verified for completeness and integrity. The figures are not property bills or service forecasts.',
+      'City labels are matched exactly to known metro names and aliases. This is an indication from the geocoder, not a verified municipal boundary. Confirm the municipality from the seller’s account; ambiguous suburbs and unmatched cities remain unresolved.',
       'An audit opinion is evidence about financial governance for a reporting period. It does not guarantee service delivery, infrastructure condition, tariffs or future municipal performance. A verified audit snapshot is not available for every municipality in this MVP.',
+    ],
+  },
+  {
+    title: 'A separate purchase-tax estimate',
+    paragraphs: [
+      `The budget tab estimates transfer duty separately from monthly ownership costs using the SARS table effective ${transferDutyEvidence.effectiveFrom}, updated ${transferDutyEvidence.sourceUpdatedAt} and retrieved ${transferDutyEvidence.retrievedAt}. The assumed taxable value is the entered purchase price, before any deposit deduction. SARS states that the April 2026 table is unchanged from April 2025.`,
+      'Use the acquisition agreement date. This snapshot supports dates from 1 April 2026 through today. The estimate is withheld for unsupported dates, possible exemptions or VAT transactions, and when the source has not been checked for more than 90 days. Confirm taxable value, any exemption and the applicable rates with your conveyancer.',
+      'The deposit plus duty subtotal is not a complete cash requirement. Conveyancing, bond registration, moving, VAT where applicable and other charges require separate quotes. The acquisition date and exemption setting are saved with the budget and carried into the PDF.',
     ],
   },
   {
@@ -106,7 +118,7 @@ export const ownershipSections: EditorialSection[] = [
     title: 'Keep once-off costs on a separate list',
     paragraphs: [
       'Monthly ownership costs are only part of the purchase decision. Keep a separate list for transfer duty where applicable, conveyancing, bond registration, moving and any immediate work on the home.',
-      'Use SARS for current transfer-duty information and obtain written professional quotes. These costs are excluded from the monthly total; the calculator does not estimate tax or legal fees.',
+      'The budget tab provides a dated SARS transfer-duty estimate alongside your deposit, separately from the monthly total. Confirm the acquisition date, taxable value and any VAT or exemption with your conveyancer. Legal fees and other purchase costs require written quotes.',
     ],
   },
   {
@@ -119,6 +131,16 @@ export const ownershipSections: EditorialSection[] = [
 ];
 
 export const evidenceLinks = [
+  {
+    label: 'National Treasury · municipal financial data API and definitions',
+    href: 'https://municipaldata.treasury.gov.za/docs',
+  },
+  { label: 'National Treasury · data reuse terms and limitations', href: municipalSnapshot.terms },
+  ...Object.values(municipalSnapshot.municipalities).map((metro) => ({
+    label: `National Treasury · ${metro.name} audit and financial history`,
+    href: metro.source,
+  })),
+  { label: 'SARS · transfer-duty rates effective April 2026', href: transferDutyEvidence.source },
   { label: 'City of Cape Town audit release · FY 2023/24', href: sources.audit },
   { label: 'AGSA · Western Cape 2023-24', href: sources.westernCape },
   { label: 'AGSA · City of Johannesburg 2023-24', href: sources.johannesburg },

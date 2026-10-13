@@ -63,6 +63,8 @@ import {
 import crime from '@/lib/crime-snapshot.json';
 import { downloadReport } from '@/lib/pdf';
 import { findNearbyPlaces } from '@/lib/places';
+import { MunicipalEvidencePanel } from './municipal-evidence-panel';
+import { PurchaseCostsPanel } from './purchase-costs-panel';
 
 const NeighbourhoodMap = dynamic(
   () => import('./neighbourhood-map').then((m) => m.NeighbourhoodMap),
@@ -85,6 +87,7 @@ export function ReportWorkspace() {
   const [toast, setToast] = useState('');
   const [exporting, setExporting] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [evidenceNow, setEvidenceNow] = useState<number | null>(null);
   const [compare, setCompare] = useState(false);
   const [placesLoading, setPlacesLoading] = useState(false);
   const [placesUnavailable, setPlacesUnavailable] = useState(false);
@@ -145,6 +148,7 @@ export function ReportWorkspace() {
     if (['overview', 'local', 'budget', 'evidence'].includes(initialTab || ''))
       setTab(initialTab as Tab);
     setLoaded(true);
+    setEvidenceNow(Date.now());
     const back = () => {
       const q = new URLSearchParams(window.location.search);
       setView(q.get('view') === 'saved' ? 'saved' : 'report');
@@ -307,79 +311,7 @@ export function ReportWorkspace() {
   );
   const evidencePanel = (
     <>
-      <section className="panel municipal-panel">
-        <div className="panel-heading">
-          <span className="panel-icon">
-            <Buildings size={25} />
-          </span>
-          <span className="tag muted">MUNICIPAL FINANCES</span>
-        </div>
-        <h2>{profile?.name || property.municipality || 'Your municipality'}</h2>
-        {profile ? (
-          <>
-            <div className={`audit-result ${profile.tone}`}>
-              {profile.tone === 'clean' ? (
-                <CheckCircle size={23} weight="fill" />
-              ) : (
-                <Info size={23} />
-              )}
-              <strong>{profile.opinionLabel}</strong>
-              <span>{profile.year}</span>
-            </div>
-            <p>{profile.summary}</p>
-            {profile.years && (
-              <div className="audit-years">
-                {profile.years.map((y) => (
-                  <div key={y}>
-                    <Check size={17} />
-                    <span>{y}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-            {profile.detail && <p>{profile.detail}</p>}
-            <p className="panel-note">
-              Dated audit evidence for the municipality, not this stand. An audit outcome does not
-              guarantee services or future municipal performance.
-            </p>
-            <a href={profile.source} target="_blank" rel="noreferrer" className="source-link">
-              {profile.sourceLabel}
-              <ArrowUpRight size={16} />
-            </a>
-            {profile.extraSource && profile.extraSourceLabel && (
-              <a
-                href={profile.extraSource}
-                target="_blank"
-                rel="noreferrer"
-                className="source-link"
-              >
-                {profile.extraSourceLabel}
-                <ArrowUpRight size={16} />
-              </a>
-            )}
-          </>
-        ) : (
-          <>
-            <div className="audit-result">
-              <Info size={23} />
-              <strong>Verify the latest audit</strong>
-            </div>
-            <p>
-              A verified audit snapshot is not available for this address. Check National Treasury
-              before drawing conclusions.
-            </p>
-          </>
-        )}
-        <a
-          href={profile?.treasury || 'https://municipalmoney.gov.za/'}
-          target="_blank"
-          rel="noreferrer"
-          className="source-link"
-        >
-          Explore National Treasury Municipal Money
-          <ArrowUpRight size={16} />
-        </a>
-      </section>
+      <MunicipalEvidencePanel property={property} now={evidenceNow} />
       <section className="panel crime-panel">
         <div className="panel-heading">
           <span className="panel-icon">
@@ -418,8 +350,9 @@ export function ReportWorkspace() {
             </div>
             <p className="panel-note">
               {crime.latestLabel}. Cape Town Data’s aggregation of SAPS station records for{' '}
-              {crime.coverage}; release 28 Aug 2026. Break-ins in the chart are homes only. Primary
-              download was unavailable during verification.
+              {crime.coverage}; release {crime.releaseDate}; retrieved {crime.retrievedAt}.
+              Break-ins in the chart are homes only. Primary download was unavailable during
+              verification.
             </p>
             <a href={crime.source} target="_blank" rel="noreferrer" className="source-link">
               View trend source & category definitions
@@ -842,6 +775,9 @@ export function ReportWorkspace() {
                     </section>
                   </div>
                 )}
+                {tab === 'budget' && (
+                  <PurchaseCostsPanel budget={budget} onChange={setBudget} now={evidenceNow} />
+                )}
                 {tab === 'evidence' && (
                   <>
                     <div className="evidence-intro">
@@ -864,11 +800,11 @@ export function ReportWorkspace() {
                           ],
                           [
                             'Ownership costs',
-                            'Standard amortisation formula plus user-entered bills and assumptions. No bank quote, current prime-rate feed or property valuation.',
+                            'Standard amortisation plus user-entered bills. A separate once-off duty estimate uses the dated SARS brackets; it does not include legal fees. No bank quote or property valuation.',
                           ],
                           [
                             'Municipal finances',
-                            'Dated AGSA audit opinions for Cape Town, Johannesburg, eThekwini and Tshwane in 2023/24. Other municipalities still need a manual check. Not a bill for this stand.',
+                            'National Treasury audit history and seven financial indicators for all eight metros. Each value has its own reporting year. City-label matches need boundary confirmation; these are not bills for this stand.',
                           ],
                           [
                             'Police statistics',

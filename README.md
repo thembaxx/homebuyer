@@ -93,6 +93,9 @@ it against a production preview with `npm run smoke`.
 `npm run smoke:discovery` verifies theme persistence, device and tab sync,
 responsive theme controls, dark dialogs, public crawl files, social images,
 server-rendered documentation and the workspace’s indexing policy.
+`npm run smoke:enrichment` verifies all eight metros, audit links, financial
+periods, duty and exemptions, saved settings, PDF export and mobile layouts with
+external services blocked. CI runs this against the production export.
 
 ## Data and honest boundaries
 
@@ -103,13 +106,35 @@ is representative; none is claimed to depict the selected address. The default
 share is a calculation, not an affordability recommendation. Monthly budgets
 exclude transfer duty, conveyancing and bond-registration fees.
 
-The Cape Town example cites the [City’s FY 2023/24 clean-audit release](https://www.capetown.gov.za/media-and-news/mayor-welcomes-cape-town-s-clean-audit-from-ag/)
-and [National Treasury Municipal Money](https://municipalmoney.gov.za/profiles/municipality-CPT-cape-town/).
-Johannesburg, eThekwini and Tshwane examples use the Auditor-General’s 2023-24 MFMA
-report: unqualified with findings for Johannesburg and eThekwini, and a qualified
-opinion for Tshwane. Audit evidence is explicitly dated and does not guarantee
-service delivery. Addresses outside these four metros still say the audit must be
-checked.
+Municipal evidence now covers **all eight metros**: Cape Town, Johannesburg,
+eThekwini, Tshwane, Buffalo City, Ekurhuleni, Mangaung and Nelson Mandela Bay.
+The report includes audit history with links to original reports and seven
+financial indicators with prior-year observations: cash balance, cash coverage,
+current ratio, revenue collection, operating and capital budget variance, and
+repairs and maintenance. [National Treasury Municipal Money](https://municipalmoney.gov.za/)
+publishes the source data. Its [terms](https://municipalmoney.gov.za/terms)
+permit reuse with attribution; Treasury does not endorse this application.
+
+Each observation keeps its own financial year (Treasury's year-end 2024 means
+2023/24), unit and missing values. The latest audit in the retrieved snapshot is
+2023/24, even though the publisher's site update notice says 2026 Q2. No exact
+publication timestamp is supplied, so it is stored as null. Treasury states the
+latest data is being verified for completeness and integrity. Unusual values,
+including eThekwini's 109.51% repairs/maintenance figure, are retained with a
+verification flag; they are not converted into household costs or safety scores.
+City matches use exact known labels and aliases, not suburb substrings. They do
+not establish a municipal boundary; verify against the seller's account.
+
+The budget tab also provides a separate deposit-and-transfer-duty subtotal using
+[the official SARS table](https://www.sars.gov.za/tax-rates/transfer-duty/), effective
+1 April 2026, updated 25 February 2026 and checked 13 October 2026. Purchase price
+is assumed to be the taxable value; the deposit does not reduce duty. The
+acquisition agreement date and exemption setting persist in saved reports and
+appear in PDFs. Unsupported dates, possible VAT/exemptions and a table checked
+more than 90 days ago produce no estimate. Conveyancing, bond registration,
+moving, VAT and other costs require separate quotes. SARS was available via web
+research, while a direct automated request returned HTTP 403; no bypass was used.
+The table is deliberately maintained through source review, not guessed updates.
 
 Woodstock residential break-ins, plus the seven recorded categories for July
 2025–June 2026, use [Cape Town Data’s aggregation of SAPS records](https://capetowndata.com/en/reports/crime/woodstock/),
@@ -121,16 +146,38 @@ Observatory and Walmer Estate. Parkhurst is labelled Parkview SAPS and Menlo Par
 is labelled Brooklyn SAPS from OpenStreetMap station pins, without a crime series.
 Umhlanga has no station assigned.
 
-Refresh the public numeric snapshot with:
+Refresh official municipal evidence:
 
 ```sh
-python scripts/scrape-public-data.py
+npm run data:check    # live fetch and validation; no file changes
+npm run data:refresh  # validate all eight metros, then atomically replace snapshot
 ```
 
-The scraper refuses unexpected page structures. Review the source and diff before
-publishing a refreshed snapshot. It does not scrape listing websites or bypass
-access controls. Unverified municipal/precinct fields for other addresses are
-shown as unavailable rather than fabricated.
+The standard-library Python importer respects robots policies, identifies itself,
+honors the source’s 120-second crawl delay, bounds response size and timeout, retries only 429/transient
+server failures, and refuses cross-origin redirects. Schema/unit drift, wrong
+metro identity, unknown audit codes, duplicate/future periods and regressing
+history fail without replacing the last snapshot. Source hashes, publisher update
+notices and retrieval dates are stored with the data. No personal contact data is
+extracted. Captured public HTML can be parsed offline with `--input-dir`; use files
+named `CPT.html`, `JHB.html`, etc. `--output` can create a review candidate.
+
+A weekly GitHub Actions job creates a candidate artifact and runs validation.
+Publishing updated data requires incorporating that artifact in a reviewed commit;
+the job does not automatically push data. Builds use the committed snapshot and
+need no network access to Treasury or SARS. The report and PDF flag municipal
+snapshots retrieved more than 90 days ago. Dates of retrieval do not upgrade the
+underlying financial reporting periods.
+
+Refresh the separate secondary Woodstock crime snapshot with:
+
+```sh
+python3 scripts/scrape-public-data.py
+```
+
+Review the source and diff before publishing. This scraper does not scrape listing
+websites or bypass access controls. Unmatched municipal/precinct fields remain
+unavailable. See [the research and maintenance notes](docs/data-enrichment.md).
 
 Public geocoding, OSM maps and nearby-place services depend on third-party
 availability and usage policies. A production service should add its own

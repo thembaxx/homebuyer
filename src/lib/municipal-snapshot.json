@@ -1,0 +1,1755 @@
+{
+  "schemaVersion": 1,
+  "retrievedAt": "2026-10-13",
+  "publisher": "National Treasury · Municipal Money",
+  "publicationDate": null,
+  "publicationNote": "Publisher supplies a quarter update notice, not an exact publication date.",
+  "verification": "Treasury states the latest data is being verified for completeness and integrity. Indicators are municipality-wide, not property bills or a service-delivery forecast.",
+  "terms": "https://municipalmoney.gov.za/terms",
+  "municipalities": {
+    "CPT": {
+      "code": "CPT",
+      "name": "Cape Town",
+      "province": "Western Cape",
+      "audits": [
+        {
+          "year": 2024,
+          "code": "unqualified",
+          "label": "Unqualified - No findings",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/CPT/CPT_Audit%20Report_2024_Y_20241212T111309Z_yolande_zeelie.pdf"
+        },
+        {
+          "year": 2023,
+          "code": "unqualified",
+          "label": "Unqualified - No findings",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/CPT/CPT_Audit%20Report_2023_Y_20240209T114722Z_yolande_zeelie.pdf"
+        },
+        {
+          "year": 2022,
+          "code": "unqualified",
+          "label": "Unqualified - No findings",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/CPT/CPT_Audit%20Report_2022_Y_20221201T123245Z_yolande_zeelie.pdf"
+        },
+        {
+          "year": 2021,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/CPT/CPT_Audit%20Report_2021_Y_20220221T084731Z_5039.pdf"
+        }
+      ],
+      "indicators": {
+        "cash_balance": {
+          "unit": "R",
+          "formula": "= Cash available at year end",
+          "values": [
+            {
+              "year": 2024,
+              "value": 12624410780.0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 7737083379.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 88837467582.0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 52782747132.0,
+              "note": null
+            }
+          ]
+        },
+        "cash_coverage": {
+          "unit": "months",
+          "formula": "= Cash available at year end / Operating Expenditure per month",
+          "values": [
+            {
+              "year": 2024,
+              "value": 2.6,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 1.8,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 21.1,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 14.6,
+              "note": null
+            }
+          ]
+        },
+        "current_ratio": {
+          "unit": "ratio",
+          "formula": "= Current Assets / Current Liabilities",
+          "values": [
+            {
+              "year": 2024,
+              "value": 1.49,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 1.66,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 1.68,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 2.04,
+              "note": null
+            }
+          ]
+        },
+        "current_debtors_collection_rate": {
+          "unit": "%",
+          "formula": "= (Collected Revenue / Billed Revenue) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 91.87,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 94.62,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 95.9,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 95.15,
+              "note": null
+            }
+          ]
+        },
+        "operating_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -4.2,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -4.2,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -1.6,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -3.0,
+              "note": null
+            }
+          ]
+        },
+        "capital_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -17.27,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -11.72,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -39.3,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -33.05,
+              "note": null
+            }
+          ]
+        },
+        "repairs_maintenance_spending": {
+          "unit": "%",
+          "formula": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 2.02,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.98,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 2.67,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 2.65,
+              "note": null
+            }
+          ]
+        }
+      },
+      "publisherUpdate": "2026 Q2",
+      "sourceSha256": "94c0f3a5254d827f179e9324529af0fab4c4869e959a4f7df7f9676dbdff4abf",
+      "source": "https://municipalmoney.gov.za/profiles/municipality-CPT-cape-town/"
+    },
+    "JHB": {
+      "code": "JHB",
+      "name": "City of Johannesburg",
+      "province": "Gauteng",
+      "audits": [
+        {
+          "year": 2024,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/JHB/JHB_Audit%20Report_2024_Y_20241211T163730Z_ntuthuzeloa.pdf"
+        },
+        {
+          "year": 2023,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/JHB/JHB_Audit%20Report_2023_Y_20231231T165632Z_ntuthuzeloa.pdf"
+        },
+        {
+          "year": 2022,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/JHB/JHB_Audit%20Report_2022_Y_20230113T143739Z_nselelon.pdf"
+        },
+        {
+          "year": 2021,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/JHB/JHB_Audit%20Report_2021_Y_20220523T092018Z_ntuthuzeloa.pdf"
+        }
+      ],
+      "indicators": {
+        "cash_balance": {
+          "unit": "R",
+          "formula": "= Cash available at year end",
+          "values": [
+            {
+              "year": 2024,
+              "value": 3717439189.0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 4722549104.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 4722549104.0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 75451447666.0,
+              "note": null
+            }
+          ]
+        },
+        "cash_coverage": {
+          "unit": "months",
+          "formula": "= Cash available at year end / Operating Expenditure per month",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0.6,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 0.9,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 0.9,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 13.2,
+              "note": null
+            }
+          ]
+        },
+        "current_ratio": {
+          "unit": "ratio",
+          "formula": "= Current Assets / Current Liabilities",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0.56,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 0.9,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 0.9,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.11,
+              "note": null
+            }
+          ]
+        },
+        "current_debtors_collection_rate": {
+          "unit": "%",
+          "formula": "= (Collected Revenue / Billed Revenue) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 89.14,
+              "note": null
+            }
+          ]
+        },
+        "operating_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 6.8,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -6.4,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -3.4,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 12.6,
+              "note": null
+            }
+          ]
+        },
+        "capital_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.72,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -9.19,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -20.26,
+              "note": null
+            }
+          ]
+        },
+        "repairs_maintenance_spending": {
+          "unit": "%",
+          "formula": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 1.96,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 1.74,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 1.74,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 2.21,
+              "note": null
+            }
+          ]
+        }
+      },
+      "publisherUpdate": "2026 Q2",
+      "sourceSha256": "0cdf30b4b3bb5b02f7b293a77302a69b612a0254289c8ab71dcfb0d13a85bd2f",
+      "source": "https://municipalmoney.gov.za/profiles/municipality-JHB-city-of-johannesburg/"
+    },
+    "ETH": {
+      "code": "ETH",
+      "name": "eThekwini",
+      "province": "Kwazulu-Natal",
+      "audits": [
+        {
+          "year": 2024,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/ETH/ETH_Audit%20Report_2024_Y_20241211T140608Z_kuselo_nteleko.pdf"
+        },
+        {
+          "year": 2023,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/ETH/ETH_Audit%20Report_2023_Y_20240108T120955Z_kuselo_nteleko.pdf"
+        },
+        {
+          "year": 2022,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/ETH/ETH_Audit%20Report_2022_Y_20230127T095933Z_kuselo_nteleko.pdf"
+        },
+        {
+          "year": 2021,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/ETH/ETH_Audit%20Report_2021_Y_20220303T105151Z_1671.pdf"
+        }
+      ],
+      "indicators": {
+        "cash_balance": {
+          "unit": "R",
+          "formula": "= Cash available at year end",
+          "values": [
+            {
+              "year": 2024,
+              "value": 9605546916.0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 8061390826.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -226612765.0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -132739875.0,
+              "note": null
+            }
+          ]
+        },
+        "cash_coverage": {
+          "unit": "months",
+          "formula": "= Cash available at year end / Operating Expenditure per month",
+          "values": [
+            {
+              "year": 2024,
+              "value": 2.1,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.1,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 0.0,
+              "note": null
+            }
+          ]
+        },
+        "current_ratio": {
+          "unit": "ratio",
+          "formula": "= Current Assets / Current Liabilities",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0.63,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.27,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 0.61,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.13,
+              "note": null
+            }
+          ]
+        },
+        "current_debtors_collection_rate": {
+          "unit": "%",
+          "formula": "= (Collected Revenue / Billed Revenue) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 23.09,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 21.13,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -0.63,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            },
+            {
+              "year": 2021,
+              "value": -0.42,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            }
+          ]
+        },
+        "operating_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 4.9,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 1.2,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 2.3,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 3.1,
+              "note": null
+            }
+          ]
+        },
+        "capital_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -11.78,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -28.98,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -29.16,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -27.6,
+              "note": null
+            }
+          ]
+        },
+        "repairs_maintenance_spending": {
+          "unit": "%",
+          "formula": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 109.51,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            },
+            {
+              "year": 2023,
+              "value": 215.89,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            },
+            {
+              "year": 2022,
+              "value": 309.9,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            },
+            {
+              "year": 2021,
+              "value": 243.9,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            }
+          ]
+        }
+      },
+      "publisherUpdate": "2026 Q2",
+      "sourceSha256": "0e16167dc9aaaa33adef6cf3abcbe1428023e336b6c06f62b9b92669996c2725",
+      "source": "https://municipalmoney.gov.za/profiles/municipality-ETH-ethekwini/"
+    },
+    "TSH": {
+      "code": "TSH",
+      "name": "City of Tshwane",
+      "province": "Gauteng",
+      "audits": [
+        {
+          "year": 2024,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/TSH/TSH_Audit%20Report_2024_Y_20250319T170622Z_tsakanin.pdf"
+        },
+        {
+          "year": 2023,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": null
+        },
+        {
+          "year": 2022,
+          "code": "adverse",
+          "label": "Adverse opinion",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/TSH/TSH_Audit%20Report_2022_Y_20230322T115902Z_nontandoq.pdf"
+        },
+        {
+          "year": 2021,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/TSH/TSH_Audit%20Report_2021_Y_20230316T144214Z_nontandoq.pdf"
+        }
+      ],
+      "indicators": {
+        "cash_balance": {
+          "unit": "R",
+          "formula": "= Cash available at year end",
+          "values": [
+            {
+              "year": 2024,
+              "value": 79869581301.0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -32299801.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        },
+        "cash_coverage": {
+          "unit": "months",
+          "formula": "= Cash available at year end / Operating Expenditure per month",
+          "values": [
+            {
+              "year": 2024,
+              "value": 21.2,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 0.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        },
+        "current_ratio": {
+          "unit": "ratio",
+          "formula": "= Current Assets / Current Liabilities",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0.31,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 0.54,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        },
+        "current_debtors_collection_rate": {
+          "unit": "%",
+          "formula": "= (Collected Revenue / Billed Revenue) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0.04,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -0.9,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            },
+            {
+              "year": 2022,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        },
+        "operating_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0.6,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        },
+        "capital_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -56.19,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 381.69,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        },
+        "repairs_maintenance_spending": {
+          "unit": "%",
+          "formula": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 1.89,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.31,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": null,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        }
+      },
+      "publisherUpdate": "2026 Q2",
+      "sourceSha256": "b9c0a88bf6ed4024b8fb56a3cc588c62feb0622ce983ba2477f80160f92ac339",
+      "source": "https://municipalmoney.gov.za/profiles/municipality-TSH-city-of-tshwane/"
+    },
+    "BUF": {
+      "code": "BUF",
+      "name": "Buffalo City",
+      "province": "Eastern Cape",
+      "audits": [
+        {
+          "year": 2024,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/BUF/BUF_Audit%20Report_2024_Y_20250128T084047Z_kholosan.pdf"
+        },
+        {
+          "year": 2023,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/BUF/BUF_Audit%20Report_2023_Y_20240201T150938Z_kholosan.pdf"
+        },
+        {
+          "year": 2022,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/BUF/BUF_Audit%20Report_2022_Y_20230201T121437Z_masixoled.pdf"
+        },
+        {
+          "year": 2021,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/BUF/BUF_Audit%20Report_2021_Y_20220408T090509Z_masixoled.pdf"
+        }
+      ],
+      "indicators": {
+        "cash_balance": {
+          "unit": "R",
+          "formula": "= Cash available at year end",
+          "values": [
+            {
+              "year": 2024,
+              "value": 2965732203.0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 4162812613.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 3944296002.0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 4050638804.0,
+              "note": null
+            }
+          ]
+        },
+        "cash_coverage": {
+          "unit": "months",
+          "formula": "= Cash available at year end / Operating Expenditure per month",
+          "values": [
+            {
+              "year": 2024,
+              "value": 3.3,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 5.5,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 5.1,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 5.9,
+              "note": null
+            }
+          ]
+        },
+        "current_ratio": {
+          "unit": "ratio",
+          "formula": "= Current Assets / Current Liabilities",
+          "values": [
+            {
+              "year": 2024,
+              "value": 1.14,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 1.1,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 1.15,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.19,
+              "note": null
+            }
+          ]
+        },
+        "current_debtors_collection_rate": {
+          "unit": "%",
+          "formula": "= (Collected Revenue / Billed Revenue) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 66.49,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 79.7,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 70.0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 71.97,
+              "note": null
+            }
+          ]
+        },
+        "operating_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 14.7,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 4.6,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 10.6,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 6.5,
+              "note": null
+            }
+          ]
+        },
+        "capital_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -14.2,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.48,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -12.12,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -27.96,
+              "note": null
+            }
+          ]
+        },
+        "repairs_maintenance_spending": {
+          "unit": "%",
+          "formula": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 1.59,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 1.76,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 1.61,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.76,
+              "note": null
+            }
+          ]
+        }
+      },
+      "publisherUpdate": "2026 Q2",
+      "sourceSha256": "b2aef97395ad86622619a9d442f1424a84db0fd38abb5c8c9ef53ab5479770d8",
+      "source": "https://municipalmoney.gov.za/profiles/municipality-BUF-buffalo-city/"
+    },
+    "EKU": {
+      "code": "EKU",
+      "name": "City of Ekurhuleni",
+      "province": "Gauteng",
+      "audits": [
+        {
+          "year": 2024,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/EKU/EKU_Audit%20Report_2024_Y_20250131T182441Z_nozipho_dlamini.pdf"
+        },
+        {
+          "year": 2023,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/EKU/EKU_Audit%20Report_2023_Y_20240313T093335Z_nozipho_dlamini.pdf"
+        },
+        {
+          "year": 2022,
+          "code": "unqualified",
+          "label": "Unqualified - No findings",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/EKU/EKU_Audit%20Report_2022_Y_20230227T143014Z_nozipho_dlamini.pdf"
+        },
+        {
+          "year": 2021,
+          "code": "unqualified",
+          "label": "Unqualified - No findings",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/EKU/EKU_Audit%20Report_2021_Y_20220222T135108Z_5405.pdf"
+        }
+      ],
+      "indicators": {
+        "cash_balance": {
+          "unit": "R",
+          "formula": "= Cash available at year end",
+          "values": [
+            {
+              "year": 2024,
+              "value": -6605838747.0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -2880739363.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -13533944510.0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 4330608267.0,
+              "note": null
+            }
+          ]
+        },
+        "cash_coverage": {
+          "unit": "months",
+          "formula": "= Cash available at year end / Operating Expenditure per month",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.2,
+              "note": null
+            }
+          ]
+        },
+        "current_ratio": {
+          "unit": "ratio",
+          "formula": "= Current Assets / Current Liabilities",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0.69,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 0.64,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 0.71,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 0.7,
+              "note": null
+            }
+          ]
+        },
+        "current_debtors_collection_rate": {
+          "unit": "%",
+          "formula": "= (Collected Revenue / Billed Revenue) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 82.46,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 91.6,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 92.21,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 52.37,
+              "note": null
+            }
+          ]
+        },
+        "operating_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -2.9,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 1.6,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 2.2,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -0.7,
+              "note": null
+            }
+          ]
+        },
+        "capital_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 1.27,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -3.03,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -3.17,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.53,
+              "note": null
+            }
+          ]
+        },
+        "repairs_maintenance_spending": {
+          "unit": "%",
+          "formula": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 5.51,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 4.04,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 3.45,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 4.09,
+              "note": null
+            }
+          ]
+        }
+      },
+      "publisherUpdate": "2026 Q2",
+      "sourceSha256": "d6d86dc13604b7c6e91053cbce15058f0cd58c7554cc08ffb5652813f3d15ba6",
+      "source": "https://municipalmoney.gov.za/profiles/municipality-EKU-city-of-ekurhuleni/"
+    },
+    "MAN": {
+      "code": "MAN",
+      "name": "Mangaung",
+      "province": "Free State",
+      "audits": [
+        {
+          "year": 2024,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/MAN/MAN_Audit%20Report_2024_Y_20250203T103044Z_arrie_bartnis.pdf"
+        },
+        {
+          "year": 2023,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/MAN/MAN_Audit%20Report_2023_Y_20240206T135025Z_arrie_bartnis.pdf"
+        },
+        {
+          "year": 2022,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/MAN/MAN_Audit%20Report_2022_Y_20230216T090039Z_arrie_bartnis.pdf"
+        },
+        {
+          "year": 2021,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/MAN/MAN_Audit%20Report_2021_Y_20220226T132354Z_5405.pdf"
+        }
+      ],
+      "indicators": {
+        "cash_balance": {
+          "unit": "R",
+          "formula": "= Cash available at year end",
+          "values": [
+            {
+              "year": 2024,
+              "value": 7454367288.0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 5123179936.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 3442910716.0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1239625217.0,
+              "note": null
+            }
+          ]
+        },
+        "cash_coverage": {
+          "unit": "months",
+          "formula": "= Cash available at year end / Operating Expenditure per month",
+          "values": [
+            {
+              "year": 2024,
+              "value": 8.4,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 6.8,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 4.3,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.9,
+              "note": null
+            }
+          ]
+        },
+        "current_ratio": {
+          "unit": "ratio",
+          "formula": "= Current Assets / Current Liabilities",
+          "values": [
+            {
+              "year": 2024,
+              "value": 0.74,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 0.79,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 0.82,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 0.86,
+              "note": null
+            }
+          ]
+        },
+        "current_debtors_collection_rate": {
+          "unit": "%",
+          "formula": "= (Collected Revenue / Billed Revenue) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 65.86,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 64.71,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 102.27,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            },
+            {
+              "year": 2021,
+              "value": 43.42,
+              "note": null
+            }
+          ]
+        },
+        "operating_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 23.1,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 12.1,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 28.8,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 17.4,
+              "note": null
+            }
+          ]
+        },
+        "capital_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -40.15,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -46.92,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -28.62,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -20.07,
+              "note": null
+            }
+          ]
+        },
+        "repairs_maintenance_spending": {
+          "unit": "%",
+          "formula": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 3.1,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.97,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 3.16,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 2.78,
+              "note": null
+            }
+          ]
+        }
+      },
+      "publisherUpdate": "2026 Q2",
+      "sourceSha256": "18f47c818daf80c403c82198934e5c3083b1aa8028eb477add784ff32efa5602",
+      "source": "https://municipalmoney.gov.za/profiles/municipality-MAN-mangaung/"
+    },
+    "NMA": {
+      "code": "NMA",
+      "name": "Nelson Mandela Bay",
+      "province": "Eastern Cape",
+      "audits": [
+        {
+          "year": 2024,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/NMA/NMA_Audit%20Report_2024_Y_20250128T105420Z_tmbangi.pdf"
+        },
+        {
+          "year": 2023,
+          "code": "unqualified_emphasis_of_matter",
+          "label": "Unqualified - Emphasis of Matter items",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/NMA/NMA_Audit%20Report_2023_Y_20240305T100041Z_tmbangi.pdf"
+        },
+        {
+          "year": 2022,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/NMA/NMA_Audit%20Report_2022_Y_20230130T090531Z_tmbangi.pdf"
+        },
+        {
+          "year": 2021,
+          "code": "qualified",
+          "label": "Qualified",
+          "reportUrl": "https://lg.treasury.gov.za/supportingdocs/NMA/NMA_Audit%20Report_2021_Y_20220610T130447Z_5039.pdf"
+        }
+      ],
+      "indicators": {
+        "cash_balance": {
+          "unit": "R",
+          "formula": "= Cash available at year end",
+          "values": [
+            {
+              "year": 2024,
+              "value": 3664751213.0,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 5040989186.0,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -134829548.0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": -113256576.0,
+              "note": null
+            }
+          ]
+        },
+        "cash_coverage": {
+          "unit": "months",
+          "formula": "= Cash available at year end / Operating Expenditure per month",
+          "values": [
+            {
+              "year": 2024,
+              "value": 2.5,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 3.8,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 0,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 0,
+              "note": null
+            }
+          ]
+        },
+        "current_ratio": {
+          "unit": "ratio",
+          "formula": "= Current Assets / Current Liabilities",
+          "values": [
+            {
+              "year": 2024,
+              "value": 1.77,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.09,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 1.87,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.94,
+              "note": null
+            }
+          ]
+        },
+        "current_debtors_collection_rate": {
+          "unit": "%",
+          "formula": "= (Collected Revenue / Billed Revenue) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -8.73,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            },
+            {
+              "year": 2023,
+              "value": 30.59,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -1.19,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            },
+            {
+              "year": 2021,
+              "value": -1.18,
+              "note": "Source value outside 0–100%; verify against audited statements."
+            }
+          ]
+        },
+        "operating_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Operating Expenditure - Budget Operating Expenditure) / Budgeted Operating Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 3.5,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": -4.2,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": -0.4,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        },
+        "capital_budget_spending": {
+          "unit": "%",
+          "formula": "= ((Actual Capital Expenditure - Budgeted Capital Expenditure) / Budgeted Capital Expenditure) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": -10.92,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 1648.86,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 1817.48,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": null,
+              "note": null
+            }
+          ]
+        },
+        "repairs_maintenance_spending": {
+          "unit": "%",
+          "formula": "= (Repairs and maintenance expenditure / (Property, Plant and Equipment + Investment Property)) * 100",
+          "values": [
+            {
+              "year": 2024,
+              "value": 2.32,
+              "note": null
+            },
+            {
+              "year": 2023,
+              "value": 2.36,
+              "note": null
+            },
+            {
+              "year": 2022,
+              "value": 2.1,
+              "note": null
+            },
+            {
+              "year": 2021,
+              "value": 1.86,
+              "note": null
+            }
+          ]
+        }
+      },
+      "publisherUpdate": "2026 Q2",
+      "sourceSha256": "6c62a48e3728021de67ff7d1f485e5a13d1dcb0f53b47832fb215cfadd6bbe71",
+      "source": "https://municipalmoney.gov.za/profiles/municipality-NMA-nelson-mandela-bay/"
+    }
+  }
+}

@@ -64,7 +64,7 @@ const faqs = [
   ],
   [
     'Where does the information come from?',
-    'Addresses and maps use OpenStreetMap. Our Cape Town example cites a dated City audit release, National Treasury Municipal Money and Cape Town Data’s aggregation of SAPS records. Other locations clearly show where verified data is unavailable. Your budget is based on your own assumptions.',
+    'Addresses and maps use OpenStreetMap. National Treasury supplies dated audits and financial indicators for all eight metros; SARS supplies transfer-duty brackets. Our Cape Town example also uses Cape Town Data’s aggregation of SAPS records. Each source has a date and scope. Your monthly budget uses your own assumptions.',
   ],
   [
     'How do reports and payment work?',

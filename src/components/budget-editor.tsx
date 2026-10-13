@@ -3,11 +3,16 @@ import { useState } from 'react';
 import { Check, Info } from '@phosphor-icons/react';
 import { type Budget, monthlyTotal, rand } from '@/lib/budget';
 
+type NumericBudgetKey = {
+  [Key in keyof Budget]: Budget[Key] extends number ? Key : never;
+}[keyof Budget] &
+  string;
+
 export function BudgetEditor({ value, onSave }: { value: Budget; onSave: (b: Budget) => void }) {
   const [draft, setDraft] = useState(value);
-  const update = (key: keyof Budget, value: number | string) =>
+  const update = <Key extends keyof Budget>(key: Key, value: Budget[Key]) =>
     setDraft((v) => ({ ...v, [key]: value }));
-  const number = (key: keyof Budget, label: string, min = 0, max = 10000000, step = 50) => (
+  const number = (key: NumericBudgetKey, label: string, min = 0, max = 10000000, step = 50) => (
     <label className="number-field" key={key}>
       <span>{label}</span>
       <div>

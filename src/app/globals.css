@@ -4911,3 +4911,99 @@ input:focus {
     font-size: 13px;
   }
 }
+/* Attributed municipal evidence and once-off purchase estimates. */
+.evidence-subheading {
+  margin-top: 24px;
+  font-size: 17px;
+}
+.municipal-indicators {
+  margin-top: 12px;
+}
+.municipal-indicator {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+.municipal-indicator > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+.municipal-indicator > div > strong {
+  font-size: 13px;
+}
+.municipal-indicator > div > span {
+  font-weight: 700;
+}
+.municipal-indicator > small {
+  display: block;
+  margin-top: 4px;
+}
+.municipal-indicator > p {
+  font-size: 12px;
+  margin: 7px 0;
+}
+.evidence-history {
+  margin: 12px 0;
+  font-size: 12px;
+}
+.evidence-history summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.evidence-history ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+}
+.evidence-history li {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 7px 0;
+}
+.evidence-history a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: underline;
+}
+.evidence-warning {
+  border-left: 3px solid #b18143;
+  padding-left: 10px;
+  font-size: 12px;
+}
+.purchase-costs-panel {
+  margin-top: 24px;
+}
+.purchase-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 24px;
+  margin: 20px 0;
+}
+.purchase-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+}
+.purchase-controls input[type='date'] {
+  font-size: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px;
+  background: var(--panel);
+  color: inherit;
+}
+.purchase-controls .exemption-control {
+  flex-direction: row;
+  align-items: center;
+}
+.purchase-controls input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  accent-color: #747f4e;
+}
