@@ -17,7 +17,10 @@ export function parseSiteOrigin(value: string | undefined): string | undefined {
     );
   return url.origin;
 }
-export const siteOrigin = parseSiteOrigin(process.env.NEXT_PUBLIC_SITE_URL);
+// Verified production domain. An explicit empty override keeps previews unindexed.
+export const siteOrigin = parseSiteOrigin(
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://homebuyer-seven.vercel.app',
+);
 export const siteUrl = (path: string) => (siteOrigin ? new URL(path, siteOrigin).href : undefined);
 export const discoveryUrl = (path: string) => siteUrl(path) || path;
 
