@@ -53,13 +53,14 @@ headers and AI documentation together. The storage keys remain stable.
 
 Set `NEXT_PUBLIC_SITE_URL` to the real public origin before the production build.
 It must be an HTTP(S) origin without a path, query, fragment or credentials.
-Without it, public preview pages are marked `noindex`, canonical URLs are omitted,
-and the sitemap is empty. With it, public pages receive absolute canonical and
+The verified production origin defaults to `https://homebuyer-seven.vercel.app`.
+An explicit empty override marks pages `noindex`, omits canonical URLs and makes
+the sitemap empty. With an origin, public pages receive absolute canonical and
 social URLs and the sitemap includes `/`, `/methodology/` and
 `/guides/home-ownership-costs/`. `/check/` always stays `noindex`; no personal
 addresses, budget inputs or saved reports enter the public discovery files.
 
-The site exposes `/llms.txt`, `/llms-full.txt`, an equivalent `/LLM.txt` alias and
+The site exposes `/llms.txt`, `/llms-full.txt`, equivalent `/llm.txt` and `/LLM.txt` aliases and
 Markdown versions at `/index.md`, `/methodology/index.md` and
 `/guides/home-ownership-costs/index.md`. The content follows the
 [llms.txt proposal](https://llmstxt.org/) and is generated from the same brand and

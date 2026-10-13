@@ -5,6 +5,8 @@ the descriptive product line **Homebuyer’s Reality Check**. Keep the current
 dimensional house/check icon, warm neutrals and sage/lime palette.
 
 The live working name remains **HomeBuyer Reality Check** until a name is chosen.
+Its current promise is **Evidence before emotion.** Search copy leads with South
+African property due diligence; creative alternatives are not public product names.
 `src/lib/brand.ts` is the single source for the wordmark, metadata, documentation,
 manifest and PDF branding. Browser storage keys and the repository name remain
 stable so a future rename does not discard saved homes.
