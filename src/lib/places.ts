@@ -15,7 +15,7 @@ export async function findNearbyPlaces(
   signal: AbortSignal,
 ): Promise<Amenity[]> {
   const around = `around:2000,${property.lat},${property.lng}`;
-  const query = `[out:json][timeout:15];(nwr(${around})[amenity~"^(hospital|clinic|pharmacy)$"][name];nwr(${around})[leisure=park][name];nwr(${around})[shop=supermarket][name];nwr(${around})[railway=station][name];);out center 30;`;
+  const query = `[out:json][timeout:15];(nwr(${around})[amenity~"^(hospital|clinic|pharmacy|school)$"][name];nwr(${around})[leisure=park][name];nwr(${around})[shop=supermarket][name];nwr(${around})[railway=station][name];);out center 40;`;
   const response = await fetch(
     `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`,
     { signal },
@@ -35,14 +35,18 @@ export async function findNearbyPlaces(
           name,
           lat,
           lng,
-          category: place.tags?.amenity
-            ? 'health'
-            : place.tags?.leisure
-              ? 'green'
-              : place.tags?.railway
-                ? 'transport'
-                : 'shop',
+          category:
+            place.tags?.amenity === 'school'
+              ? 'school'
+              : place.tags?.amenity
+                ? 'health'
+                : place.tags?.leisure
+                  ? 'green'
+                  : place.tags?.railway
+                    ? 'transport'
+                    : 'shop',
           source: `https://www.openstreetmap.org/${place.type}/${place.id}`,
+          retrievedAt: new Date().toISOString().slice(0, 10),
         },
       ];
     })

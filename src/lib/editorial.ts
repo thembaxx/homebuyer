@@ -25,12 +25,13 @@ export const methodologySections: EditorialSection[] = [
       'The initial maintenance reserve uses an illustrative 1% of the purchase price per year. After that, it is your editable monthly amount.',
       'Income share divides the monthly estimate by the take-home income you enter. It is not a lending or affordability recommendation.',
       'Transfer duty, conveyancing, bond registration and other once-off purchase costs are outside the monthly estimate.',
+      'The rate scenarios add one and two percentage points to your annual rate, keeping other monthly expenses constant. Each assumes that rate for the whole term; total interest and repayments exclude fees and extra repayments.',
     ],
   },
   {
     title: 'Addresses, maps and nearby places',
     paragraphs: [
-      'Live address search uses Photon’s OpenStreetMap index. Maps use OpenStreetMap tiles. New addresses request named nearby essentials through the public Overpass service. Coverage and third-party availability vary.',
+      'Live address search uses Photon’s OpenStreetMap index. Maps use OpenStreetMap tiles. New addresses request named schools, health services, shops, parks and railway stations through the public Overpass service. Coverage and third-party availability vary. A school map pin does not confirm admission, catchment or quality. Live place results record a retrieval date; older example places have no recorded retrieval date.',
       'Example reports contain an attributed snapshot of named places. Nearby distances are calculated from coordinates and are approximate straight-line distances, not walking routes or traffic estimates. Always check the property pin and actual route.',
     ],
   },
@@ -48,7 +49,7 @@ export const methodologySections: EditorialSection[] = [
     paragraphs: [
       `The budget tab estimates transfer duty separately from monthly ownership costs using the SARS table effective ${transferDutyEvidence.effectiveFrom}, updated ${transferDutyEvidence.sourceUpdatedAt} and retrieved ${transferDutyEvidence.retrievedAt}. The assumed taxable value is the entered purchase price, before any deposit deduction. SARS states that the April 2026 table is unchanged from April 2025.`,
       'Use the acquisition agreement date. This snapshot supports dates from 1 April 2026 through today. The estimate is withheld for unsupported dates, possible exemptions or VAT transactions, and when the source has not been checked for more than 90 days. Confirm taxable value, any exemption and the applicable rates with your conveyancer.',
-      'The deposit plus duty subtotal is not a complete cash requirement. Conveyancing, bond registration, moving, VAT where applicable and other charges require separate quotes. The acquisition date and exemption setting are saved with the budget and carried into the PDF.',
+      'Add written quotes for conveyancing and transfer, bond registration and lender fees, moving, immediate repairs and other upfront costs. Enter totals including VAT where charged and avoid counting duty twice. Unknown quotes stay blank; zero means you confirmed no cost applies. The known subtotal stays incomplete until all quotes and duty are resolved. Allow for additional costs identified by your advisers.',
     ],
   },
   {
@@ -71,7 +72,8 @@ export const methodologySections: EditorialSection[] = [
     title: 'Pricing and your browser’s data',
     paragraphs: [
       'The intended future report range is R99–R299. The current MVP offers free early access: payment processing is not connected and no action charges you.',
-      'Saved comparisons, budgets and checklists stay in this browser’s local storage. There is no account, cloud sync or cloud report storage. Export a PDF to keep a portable copy.',
+      'Saved comparisons, budgets and checklists stay in this browser’s local storage. New saves capture the calculated costs, scenarios, tax table, municipal source data, available crime series and checklist at that time. A saved PDF uses this evidence even after a later source update; it is a dated record, not a fresh assessment. Older saves have no historical evidence and their exports say they use current sources. Updating a save replaces its previous snapshot.',
+      'Choose two or three saved homes to compare costs, source periods and remaining checks. Export the comparison PDF to share it with someone you trust. There is no account, cloud sync, public report link or cloud report storage. Removing a saved home deletes that copy from this browser; downloaded files need to be deleted separately.',
       'Address search sends your query to Photon. Nearby-place requests send coordinates to Overpass. Map requests go to OpenStreetMap. These public services apply their own privacy and usage policies.',
       'The report workspace is marked noindex. That is a discovery setting, not access control. Public robots and AI guide files contain product documentation only, never saved reports or personal financial inputs.',
     ],
@@ -91,6 +93,7 @@ export const ownershipSections: EditorialSection[] = [
     paragraphs: [
       'Your deposit reduces the amount financed. The repayment also depends on the interest rate and term. Enter a lender’s quoted rate rather than assuming a default is the rate you will receive.',
       'Changing the deposit, interest rate or term changes the repayment. A lower monthly repayment does not by itself describe the total lifetime cost of the loan. The calculator estimates a standard fixed-input amortising payment; it does not model future rate changes or a bank’s full lending terms.',
+      'Use the ownership-budget rate table to see what one or two percentage points more interest would do to the monthly payment. The lifetime-interest summary assumes your entered rate throughout the term. Neither is a rate forecast or lender approval.',
     ],
   },
   {

@@ -2,10 +2,11 @@ import { financialYear, municipalSnapshot, type MunicipalEvidence } from './muni
 
 export type Amenity = {
   name: string;
-  category: 'health' | 'transport' | 'green' | 'shop';
+  category: 'health' | 'transport' | 'green' | 'shop' | 'school';
   lat: number;
   lng: number;
   source: string;
+  retrievedAt?: string;
 };
 export type AuditTone = 'clean' | 'findings' | 'qualified';
 export type MunicipalProfile = {
@@ -385,6 +386,30 @@ export const checklist = [
     detail:
       'Visit on a weekday and after dark. Talk to neighbours and the local community policing forum.',
     icon: 'people',
+  },
+  {
+    title: 'Review the seller’s condition disclosure',
+    detail:
+      'Request the signed mandatory disclosure form. Ask about known defects, past repairs and warranties; give it to your independent inspector.',
+    icon: 'house',
+  },
+  {
+    title: 'Have a conveyancer check title and plans',
+    detail:
+      'Ask about title conditions, servitudes, approved building plans and alterations. Confirm the offer’s conditions and deadlines before signing.',
+    icon: 'bill',
+  },
+  {
+    title: 'Check sectional-title or estate documents',
+    detail:
+      'If applicable, request financial statements, meeting minutes, conduct rules, insurance cover and planned special levies. Mark done only after review or confirming it does not apply.',
+    icon: 'people',
+  },
+  {
+    title: 'Confirm finance and all purchase-cost quotes',
+    detail:
+      'Get a written lender quote and itemised transfer and bond-registration costs. Confirm tax treatment, cash needed and any gas, electric-fence or locally required compliance certificates.',
+    icon: 'electric',
   },
 ];
 

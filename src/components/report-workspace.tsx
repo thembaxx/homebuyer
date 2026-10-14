@@ -35,6 +35,7 @@ import {
   Lightning,
   UsersThree,
   Receipt,
+  GraduationCap,
 } from '@phosphor-icons/react';
 import { Logo } from './logo';
 import { ThemePicker } from './theme-picker';
@@ -61,7 +62,10 @@ import {
   type Property,
 } from '@/lib/data';
 import crime from '@/lib/crime-snapshot.json';
-import { downloadReport } from '@/lib/pdf';
+import { downloadReport, downloadComparison } from '@/lib/pdf';
+import { createReport, restoreReports, reportSnapshot, isProperty } from '@/lib/reports';
+import { RateScenariosPanel } from './rate-scenarios-panel';
+import { PropertyComparison } from './property-comparison';
 import { findNearbyPlaces } from '@/lib/places';
 import { MunicipalEvidencePanel } from './municipal-evidence-panel';
 import { PurchaseCostsPanel } from './purchase-costs-panel';
@@ -71,7 +75,13 @@ const NeighbourhoodMap = dynamic(
   { ssr: false },
 );
 const HouseScene = dynamic(() => import('./house-scene').then((m) => m.HouseScene), { ssr: false });
-const placeIcons = { transport: Train, green: Tree, health: FirstAid, shop: Storefront };
+const placeIcons = {
+  transport: Train,
+  green: Tree,
+  health: FirstAid,
+  shop: Storefront,
+  school: GraduationCap,
+};
 type Tab = 'overview' | 'local' | 'budget' | 'evidence';
 type View = 'report' | 'saved';
 
@@ -89,6 +99,7 @@ export function ReportWorkspace() {
   const [loaded, setLoaded] = useState(false);
   const [evidenceNow, setEvidenceNow] = useState<number | null>(null);
   const [compare, setCompare] = useState(false);
+  const [openedSavedAt, setOpenedSavedAt] = useState<string | null>(null);
   const [placesLoading, setPlacesLoading] = useState(false);
   const [placesUnavailable, setPlacesUnavailable] = useState(false);
   useEffect(() => {
@@ -121,20 +132,16 @@ export function ReportWorkspace() {
   useEffect(() => {
     try {
       const raw = JSON.parse(localStorage.getItem('homebuyer:saved') || '[]');
-      if (Array.isArray(raw))
-        setSaved(
-          raw.filter(
-            (r: SavedReport) =>
-              r.property?.id &&
-              r.budget &&
-              Number.isFinite(r.budget.price) &&
-              Array.isArray(r.checked),
-          ),
+      const restored = restoreReports(raw);
+      setSaved(restored);
+      if (Array.isArray(raw) && restored.length !== raw.length)
+        setToast(
+          'Some invalid saved homes could not be restored. Your other reports are available.',
         );
       const selected = sessionStorage.getItem('homebuyer:selected');
       if (selected) {
         const p = JSON.parse(selected) as Property;
-        if (p.id && Number.isFinite(p.lat) && Array.isArray(p.amenities)) {
+        if (isProperty(p)) {
           setProperty(p);
           setBudget(defaultBudget(p));
         }
@@ -175,6 +182,7 @@ export function ReportWorkspace() {
   };
   const choose = (p: Property) => {
     setProperty(p);
+    setOpenedSavedAt(null);
     setBudget(defaultBudget(p));
     setChecked([]);
     setFilter('all');
@@ -199,7 +207,9 @@ export function ReportWorkspace() {
     }
   }, []);
   const save = () => {
-    const report = { property, budget, checked, savedAt: new Date().toISOString() };
+    const report = createReport(property, budget, checked);
+    setBudget(report.budget);
+    setOpenedSavedAt(report.savedAt);
     const exists = saved.some((r) => r.property.id === property.id);
     if (persist([...saved.filter((r) => r.property.id !== property.id), report]))
       setToast(
@@ -208,15 +218,24 @@ export function ReportWorkspace() {
           : 'Home saved. Your numbers are ready to compare.',
       );
   };
-  const exportPdf = async (
-    report: SavedReport = { property, budget, checked, savedAt: new Date().toISOString() },
-  ) => {
+  const exportPdf = async (report: SavedReport = createReport(property, budget, checked)) => {
     setExporting(true);
     try {
       await downloadReport(report);
       setToast('Your PDF report is ready. Check your downloads.');
     } catch {
       setToast('The PDF could not be created. Please try again.');
+    } finally {
+      setExporting(false);
+    }
+  };
+  const exportComparison = async (reports: SavedReport[]) => {
+    setExporting(true);
+    try {
+      await downloadComparison(reports);
+      setToast('Your comparison PDF is ready. Share the downloaded file with someone you trust.');
+    } catch {
+      setToast('The comparison PDF could not be created. Please try again.');
     } finally {
       setExporting(false);
     }
@@ -244,6 +263,8 @@ export function ReportWorkspace() {
           ['transport', 'Transport'],
           ['green', 'Green spaces'],
           ['health', 'Health'],
+          ['school', 'Schools'],
+          ['shop', 'Shops'],
         ].map(([key, label]) => (
           <button
             className={filter === key ? 'active' : ''}
@@ -280,7 +301,12 @@ export function ReportWorkspace() {
                         ? 'Getting around'
                         : a.category === 'health'
                           ? 'Care nearby'
-                          : 'Local essentials'}
+                          : a.category === 'school'
+                            ? 'Confirm admissions and catchment'
+                            : 'Local essentials'}
+                    {a.retrievedAt
+                      ? ` · retrieved ${a.retrievedAt}`
+                      : ' · retrieval date not recorded'}
                   </small>
                 </span>
                 <span>{distanceLabel(distanceKm(property.lat, property.lng, a.lat, a.lng))}</span>
@@ -294,6 +320,14 @@ export function ReportWorkspace() {
             Finding nearby essentials in OpenStreetMap…
           </p>
         )}
+        {filter !== 'all' &&
+          property.amenities.length > 0 &&
+          !property.amenities.some((a) => a.category === filter) && (
+            <p className="data-note" role="status">
+              No {filter === 'school' ? 'schools' : 'places in this category'} are recorded in this
+              snapshot. Confirm locally; missing data does not mean there are none nearby.
+            </p>
+          )}
         {!property.amenities.length && !placesLoading && (
           <p className="data-note">
             <Info size={19} />
@@ -555,6 +589,13 @@ export function ReportWorkspace() {
                     <ArrowUpRight size={16} />
                   </button>
                 </div>
+                {openedSavedAt && (
+                  <p className="saved-evidence-note">
+                    Saved {openedSavedAt.slice(0, 10)}. This editing view uses current evidence.
+                    Update saved to capture changes; download the saved PDF from Saved homes to keep
+                    the original evidence.
+                  </p>
+                )}
                 {tab === 'overview' && (
                   <>
                     <div className="overview-grid">
@@ -776,7 +817,10 @@ export function ReportWorkspace() {
                   </div>
                 )}
                 {tab === 'budget' && (
-                  <PurchaseCostsPanel budget={budget} onChange={setBudget} now={evidenceNow} />
+                  <>
+                    <RateScenariosPanel budget={budget} />
+                    <PurchaseCostsPanel budget={budget} onChange={setBudget} now={evidenceNow} />
+                  </>
                 )}
                 {tab === 'evidence' && (
                   <>
@@ -839,7 +883,13 @@ export function ReportWorkspace() {
                   </div>
                   <div className="checklist-grid">
                     {checklist.map((item, i) => {
-                      const Icon = [Lightning, HouseLine, Receipt, UsersThree][i];
+                      const Icon =
+                        {
+                          electric: Lightning,
+                          house: HouseLine,
+                          bill: Receipt,
+                          people: UsersThree,
+                        }[item.icon] ?? HouseLine;
                       return (
                         <button
                           key={item.title}
@@ -927,48 +977,11 @@ export function ReportWorkspace() {
                   </button>
                 </section>
               ) : compare ? (
-                <section className="comparison-panel">
-                  <div className="comparison-scroll">
-                    <table>
-                      <caption>The monthly reality, side by side</caption>
-                      <thead>
-                        <tr>
-                          <th>YOUR SHORTLIST</th>
-                          {saved.map((r) => (
-                            <th key={r.property.id}>
-                              <strong>{r.property.address}</strong>
-                              <small>{r.property.suburb}</small>
-                            </th>
-                          ))}
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {[
-                          ['Purchase assumption', ...saved.map((r) => rand(r.budget.price))],
-                          ['Monthly total', ...saved.map((r) => rand(monthlyTotal(r.budget)))],
-                          ...budgetLines(saved[0].budget).map((line, i) => [
-                            line.label,
-                            ...saved.map((r) => rand(budgetLines(r.budget)[i].value)),
-                          ]),
-                          ['Deposit', ...saved.map((r) => `${r.budget.deposit}%`)],
-                          ['Bond rate', ...saved.map((r) => `${r.budget.rate}%`)],
-                          ['Commute (one way)', ...saved.map((r) => `${r.budget.commuteKm} km`)],
-                          ['Checklist progress', ...saved.map((r) => `${r.checked.length} / 4`)],
-                        ].map((row, i) => (
-                          <tr key={row[0]} className={i === 1 ? 'comparison-total' : ''}>
-                            {row.map((cell, j) =>
-                              j === 0 ? <th key={j}>{cell}</th> : <td key={j}>{cell}</td>,
-                            )}
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <p className="panel-note">
-                    Each column uses the assumptions saved with that report. No valuation or safety
-                    ranking is implied.
-                  </p>
-                </section>
+                <PropertyComparison
+                  reports={saved}
+                  exporting={exporting}
+                  onExport={exportComparison}
+                />
               ) : (
                 <div className="saved-grid">
                   {saved.map((r) => (
@@ -997,17 +1010,25 @@ export function ReportWorkspace() {
                         <h2>{r.property.address}</h2>
                         <div className="saved-monthly">
                           <span>Monthly reality</span>
-                          <strong>{rand(monthlyTotal(r.budget))}</strong>
+                          <strong>{rand(reportSnapshot(r).monthlyTotal)}</strong>
                         </div>
+                        <p className="panel-note">
+                          {r.snapshot
+                            ? `Evidence captured ${r.snapshot.capturedAt.slice(0, 10)}`
+                            : 'Older save · evidence not captured'}
+                        </p>
                         <div className="saved-assumptions">
                           <span>{r.budget.deposit}% deposit</span>
                           <span>{r.budget.rate}% bond rate</span>
-                          <span>{r.checked.length}/4 checks</span>
+                          <span>
+                            {r.checked.length}/{reportSnapshot(r).checklist.length} checks
+                          </span>
                         </div>
                         <button
                           className="button outline"
                           onClick={() => {
                             setProperty(r.property);
+                            setOpenedSavedAt(r.savedAt);
                             setBudget(r.budget);
                             setChecked(r.checked);
                             navigate('report', 'overview');

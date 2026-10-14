@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 import './themes.css';
 import './editorial.css';
+import './decision-tools.css';
 
 export const metadata: Metadata = {
   ...pageMetadata('South African Property Due Diligence', brand.description, '/', '/index.md'),
