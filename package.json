@@ -15,7 +15,8 @@
     "data:check": "python3 scripts/refresh-enrichment.py --check",
     "smoke": "node scripts/browser-smoke.mjs",
     "smoke:enrichment": "node scripts/enrichment-smoke.mjs",
-    "smoke:discovery": "node scripts/discovery-smoke.mjs"
+    "smoke:discovery": "node scripts/discovery-smoke.mjs",
+    "smoke:decision": "node scripts/decision-smoke.mjs"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

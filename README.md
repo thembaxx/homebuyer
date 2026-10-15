@@ -37,6 +37,10 @@ social metadata. No API keys are required.
 - Editable bond amortisation, deposit, interest rate, term, rates, levies,
   utilities, insurance, maintenance, income and return-commute assumptions.
 - Saved report snapshots and side-by-side comparisons in browser local storage.
+- Selectable two- or three-home comparisons with baseline/stressed budgets,
+  upfront cash, evidence periods and a downloadable comparison PDF.
+- Interest-rate sensitivity (+1/+2 percentage points), fixed-rate lifetime
+  interest and purchase-cost quotes with explicit unknown amounts.
 - Viewing checklist and downloadable multi-page PDFs with source links and scope.
 - Native modal focus trapping, mobile bottom navigation, reduced-motion support,
   map/WebGL/search fallback states and browser back navigation for report tabs.
@@ -96,6 +100,12 @@ server-rendered documentation and the workspace’s indexing policy.
 `npm run smoke:enrichment` verifies all eight metros, audit links, financial
 periods, duty and exemptions, saved settings, PDF export and mobile layouts with
 external services blocked. CI runs this against the production export.
+`npm run smoke:decision` verifies the Pretoria buyer flow, upfront quotes,
+eight checks, selecting three homes from a larger shortlist, comparison PDFs,
+historical snapshot export and mobile/dark layouts. New saved reports copy the
+source payloads and calculations; PDFs keep those captured results. Updating a
+save replaces the snapshot. Older saves use current evidence with a visible note.
+See [research actions and launch prerequisites](docs/research-actions.md).
 
 ## Data and honest boundaries
 
@@ -132,7 +142,10 @@ is assumed to be the taxable value; the deposit does not reduce duty. The
 acquisition agreement date and exemption setting persist in saved reports and
 appear in PDFs. Unsupported dates, possible VAT/exemptions and a table checked
 more than 90 days ago produce no estimate. Conveyancing, bond registration,
-moving, VAT and other costs require separate quotes. SARS was available via web
+moving, VAT and other costs require separate quotes. The upfront planner accepts
+those quotes separately; blank means unresolved, while a confirmed zero is
+included. Its known subtotal is marked incomplete until duty and all five quote
+categories are resolved. SARS was available via web
 research, while a direct automated request returned HTTP 403; no bypass was used.
 The table is deliberately maintained through source review, not guessed updates.
 
