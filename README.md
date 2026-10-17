@@ -1,5 +1,23 @@
 # HomeBuyer’s Reality Check
 
+A South African property due-diligence companion for comparing ownership budgets, nearby places and buyer checklists.
+
+[Browse the source](https://github.com/thembaxx/homebuyer)
+
+## Engineering highlights
+
+Editable financial assumptions, browser-local report snapshots, PDF comparison exports and sourced enrichment. Estimates are not valuations or street-level safety guarantees.
+
+## Technology
+
+Declared in [package.json](package.json): Next.js `^16.0.0` · React `^19.2.0` · TypeScript `^5.9.3` · Tailwind CSS `^4.1.14` · Three.js `^0.180.0` · Motion `^12.23.24` · Leaflet `^1.9.4`.
+
+**Quality tooling:** `lint`, `format:check`, `typecheck`, `test`, `data:check` scripts are available. See the setup guide below for prerequisites; this documentation pass does not assert that those checks were run.
+
+---
+
+## Project guide
+
 A South African buyer’s due-diligence companion built with Next.js, TypeScript,
 Tailwind CSS, Motion, Three.js/WebGL, Phosphor icons and Leaflet. The landing page
 leads into a responsive report workspace at `/check/`.
