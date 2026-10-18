@@ -1,4 +1,5 @@
 import type { Property } from './data';
+import type { ReportSnapshot } from './reports';
 
 export type Budget = {
   price: number;
@@ -17,12 +18,18 @@ export type Budget = {
   income: number;
   acquisitionDate?: string;
   transferDutyExempt?: boolean;
+  transferFees?: number;
+  bondFees?: number;
+  movingCosts?: number;
+  immediateRepairs?: number;
+  otherUpfront?: number;
 };
 export type SavedReport = {
   property: Property;
   budget: Budget;
   savedAt: string;
   checked: number[];
+  snapshot?: ReportSnapshot;
 };
 export const rand = (value: number) =>
   `R${Math.round(value).toLocaleString('en-ZA').replace(/,/g, ' ')}`;
@@ -55,12 +62,19 @@ export function defaultBudget(p: Property): Budget {
   };
 }
 export function bondPayment(principal: number, annualRate: number, years: number) {
+  if (
+    ![principal, annualRate, years].every(Number.isFinite) ||
+    principal < 0 ||
+    annualRate < 0 ||
+    years <= 0
+  )
+    throw new RangeError('Bond inputs must be finite, non-negative, with a positive term');
   if (principal <= 0) return 0;
-  const months = Math.max(1, years * 12);
+  const months = years * 12;
   const monthlyRate = annualRate / 1200;
   return monthlyRate === 0
     ? principal / months
-    : (principal * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -months));
+    : (principal * monthlyRate) / -Math.expm1(-months * Math.log1p(monthlyRate));
 }
 export function budgetLines(b: Budget) {
   return [
@@ -83,4 +97,28 @@ export function budgetLines(b: Budget) {
 }
 export function monthlyTotal(b: Budget) {
   return budgetLines(b).reduce((sum, line) => sum + line.value, 0);
+}
+
+export function loanSummary(b: Budget) {
+  const principal = b.price * (1 - b.deposit / 100);
+  const payment = bondPayment(principal, b.rate, b.years);
+  const totalRepaid = payment * b.years * 12;
+  return { principal, payment, totalRepaid, interest: Math.max(0, totalRepaid - principal) };
+}
+
+export function rateScenarios(b: Budget) {
+  const currentTotal = monthlyTotal(b);
+  return [0, 1, 2].map((increase) => {
+    const scenario = { ...b, rate: b.rate + increase };
+    const bond = loanSummary(scenario).payment;
+    const total = monthlyTotal(scenario);
+    return {
+      increase,
+      rate: scenario.rate,
+      bond,
+      total,
+      change: total - currentTotal,
+      incomeShare: b.income > 0 ? (total / b.income) * 100 : null,
+    };
+  });
 }

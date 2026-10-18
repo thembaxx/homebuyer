@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Check, Info } from '@phosphor-icons/react';
 import { type Budget, monthlyTotal, rand } from '@/lib/budget';
+import { isBudget } from '@/lib/reports';
 
 type NumericBudgetKey = {
   [Key in keyof Budget]: Budget[Key] extends number ? Key : never;
@@ -10,6 +11,7 @@ type NumericBudgetKey = {
 
 export function BudgetEditor({ value, onSave }: { value: Budget; onSave: (b: Budget) => void }) {
   const [draft, setDraft] = useState(value);
+  const [error, setError] = useState('');
   const update = <Key extends keyof Budget>(key: Key, value: Budget[Key]) =>
     setDraft((v) => ({ ...v, [key]: value }));
   const number = (key: NumericBudgetKey, label: string, min = 0, max = 10000000, step = 50) => (
@@ -40,12 +42,16 @@ export function BudgetEditor({ value, onSave }: { value: Budget; onSave: (b: Bud
       className="budget-editor"
       onSubmit={(e) => {
         e.preventDefault();
-        onSave(draft);
+        if (isBudget(draft)) onSave(draft);
+        else
+          setError(
+            'Check your numbers: use non-negative amounts and a whole-number term from 1 to 30 years.',
+          );
       }}
     >
       <div className="editor-total">
         <span>Your estimated monthly cost</span>
-        <strong>{rand(monthlyTotal(draft))}</strong>
+        <strong>{isBudget(draft) ? rand(monthlyTotal(draft)) : 'Check inputs'}</strong>
       </div>
       <div className="editor-section">
         <h3>The home & the bond</h3>
@@ -112,6 +118,11 @@ export function BudgetEditor({ value, onSave }: { value: Budget; onSave: (b: Bud
       <button className="button dark" type="submit">
         Use these numbers <Check size={20} />
       </button>
+      {error && (
+        <p role="alert" className="panel-note">
+          {error}
+        </p>
+      )}
     </form>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { brand } from '@/lib/brand';
 import { siteOrigin, pageMetadata } from '@/lib/site';
 import { themeBootstrap } from '@/lib/theme';
@@ -6,6 +7,7 @@ import { ThemeProvider } from '@/components/theme-provider';
 import './globals.css';
 import './themes.css';
 import './editorial.css';
+import './decision-tools.css';
 
 export const metadata: Metadata = {
   ...pageMetadata('South African Property Due Diligence', brand.description, '/', '/index.md'),
@@ -45,6 +47,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </a>
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
