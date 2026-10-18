@@ -16,7 +16,10 @@
     "smoke": "node scripts/browser-smoke.mjs",
     "smoke:enrichment": "node scripts/enrichment-smoke.mjs",
     "smoke:discovery": "node scripts/discovery-smoke.mjs",
-    "smoke:decision": "node scripts/decision-smoke.mjs"
+    "smoke:decision": "node scripts/decision-smoke.mjs",
+    "discovery": "tsx scripts/discovery-alias.ts",
+    "prebuild": "npm run discovery",
+    "predev": "tsx scripts/discovery-alias.ts --development"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",

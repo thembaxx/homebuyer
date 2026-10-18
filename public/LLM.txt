@@ -1,0 +1,18 @@
+# HomeBuyer Reality Check
+
+> South African property due diligence: estimate monthly ownership costs, explore local evidence and compare homes before you buy.
+
+HomeBuyer is an independent buyer-oriented tool, not a property advertising platform. The current MVP is free early access. R99–R299 is intended future report pricing; no checkout or charges are connected.
+
+Ownership budgets use user assumptions, not licensed valuations or lender quotes. Police data describes a precinct and never measures a street’s safety. Municipal evidence is dated. Saved reports stay in the visitor’s browser and are not part of these public documents.
+
+## Product
+
+- [Product overview](https://homebuyer-seven.vercel.app/index.md): Scope, workflow, intended pricing and current MVP status.
+- [Sources and methodology](https://homebuyer-seven.vercel.app/methodology/index.md): Calculation formulas, data dates, coverage and privacy.
+- [South African ownership cost guide](https://homebuyer-seven.vercel.app/guides/home-ownership-costs/index.md): Bond repayments, rates, levies, utilities, insurance, maintenance, commuting and once-off costs.
+
+## Optional
+
+- [Full product documentation](https://homebuyer-seven.vercel.app/llms-full.txt): Combined plain-text product, methodology and ownership guide.
+- [Human-readable methodology](https://homebuyer-seven.vercel.app/methodology/): The public source and methodology page.
