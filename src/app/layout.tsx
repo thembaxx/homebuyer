@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import { brand } from '@/lib/brand';
 import { siteOrigin, pageMetadata } from '@/lib/site';
 import { themeBootstrap } from '@/lib/theme';
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </a>
           {children}
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
