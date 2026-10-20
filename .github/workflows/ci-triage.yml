@@ -1,7 +1,7 @@
 name: CI failure triage
 on:
   workflow_run:
-    workflows: ["Validate HomeBuyer", "Refresh municipal evidence candidate"]
+    workflows: ["Refresh municipal evidence candidate"]
     types: [completed]
 permissions:
   contents: read
