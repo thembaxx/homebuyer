@@ -1,7 +1,7 @@
 name: CI failure triage
 on:
   workflow_run:
-    workflows: ["Refresh municipal evidence candidate"]
+    workflows: ['Refresh municipal evidence candidate']
     types: [completed]
 permissions:
   contents: read
@@ -14,3 +14,4 @@ jobs:
     with:
       run_id: ${{ github.event.workflow_run.id }}
       workflow_name: ${{ github.event.workflow_run.name }}
+
