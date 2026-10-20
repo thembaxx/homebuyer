@@ -36,3 +36,43 @@ jobs:
           path: src/lib/municipal-snapshot.json
           retention-days: 30
           if-no-files-found: error
+
+  publish:
+    needs: refresh
+    if: github.ref_name == github.event.repository.default_branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Retrieve validated evidence artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: municipal-evidence-candidate
+          path: .
+      - name: Propose source changes for editorial review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- src/lib/municipal-snapshot.json; then
+            echo 'No evidence change.'
+            exit 0
+          fi
+          branch="automation/municipal-evidence-$(date -u +%Y-%m-%d)"
+          if git ls-remote --heads origin "refs/heads/$branch" | grep -q .; then
+            echo 'A review branch already exists today; not overwriting it.'
+            exit 0
+          fi
+          git switch -c "$branch"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/lib/municipal-snapshot.json
+          git commit -m 'data: propose refreshed municipal evidence'
+          gh auth setup-git
+          git push origin "HEAD:refs/heads/$branch"
+          gh pr create --base "$GITHUB_REF_NAME" --head "$branch" --title 'Review refreshed municipal evidence' --body 'Automated public-source candidate. Validate publication dates, geographic scope, attribution and practical claims before merging. Collector tests, type checking and build passed. This PR does not publish directly.'
