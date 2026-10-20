@@ -19,7 +19,10 @@ export const metadata: Metadata = {
   applicationName: brand.productName,
   category: 'property due diligence',
   manifest: '/manifest.webmanifest',
-  icons: { icon: '/icon.svg', apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }] },
+  icons: {
+    icon: '/icon.svg',
+    apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
   robots: {
     index: Boolean(siteOrigin),
     follow: true,
