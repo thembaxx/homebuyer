@@ -1,0 +1,25 @@
+name: Temporary format diagnostics
+on:
+  push:
+    paths:
+      - .github/workflows/format-diagnostics.yml
+permissions:
+  contents: read
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: |
+          npx oxfmt --write .github/dependabot.yml .github/workflows/ci-failure-triage.yml .github/workflows/ci-triage.yml
+          for file in .github/dependabot.yml .github/workflows/ci-failure-triage.yml .github/workflows/ci-triage.yml; do
+            printf '\n<<<FILE_START:%s>>>\n' "$file"
+            cat "$file"
+            printf '\n<<<FILE_END:%s>>>\n' "$file"
+          done
