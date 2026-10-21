@@ -2,7 +2,9 @@
 
 A South African property due-diligence companion for comparing ownership budgets, nearby places and buyer checklists.
 
-[Browse the source](https://github.com/thembaxx/homebuyer)
+**[Explore the verified live application](https://homebuyer-seven.vercel.app/)** · [Browse the source](https://github.com/thembaxx/homebuyer)
+
+*Live walkthrough checked on 21 October 2026:* the public landing page and the property reality-check workspace at [`/check`](https://homebuyer-seven.vercel.app/check) both rendered without sign-in. The displayed property and estimates are examples, not verified property valuations. The browser did not export a downloadable screenshot, so no new image is represented as captured in this repository.
 
 ## Engineering highlights
 
