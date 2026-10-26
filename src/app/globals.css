@@ -1835,7 +1835,7 @@ input:focus {
   padding: 7px 11px;
   border-radius: 100px;
   color: #929d80;
-  font-size: 8px;
+  font-size: 11px;
   white-space: nowrap;
 }
 .map-filters button.active {
@@ -2718,9 +2718,9 @@ input:focus {
   padding: 0 0 20px;
 }
 .comparison-panel thead th {
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 500;
-  color: #8da579;
+  color: #526441;
   padding: 20px 18px;
   background: #f1f6e7;
   min-width: 180px;
@@ -2733,8 +2733,8 @@ input:focus {
 }
 .comparison-panel th > small {
   display: block;
-  font-size: 8px;
-  color: #adc199;
+  font-size: 11px;
+  color: #526441;
   margin-top: 8px;
 }
 .comparison-panel tbody th {
@@ -3117,7 +3117,7 @@ input:focus {
     gap: 4px;
   }
   .map-filters button {
-    font-size: 7px;
+    font-size: 11px;
     padding: 7px 8px;
   }
   .model-panel > .house-scene {
@@ -3441,7 +3441,7 @@ input:focus {
     height: 285px;
   }
   .map-filters button {
-    font-size: 8px;
+    font-size: 11px;
     padding: 8px 13px;
   }
   .checklist-heading h2 {
@@ -4243,7 +4243,7 @@ input:focus {
     gap: 5px;
   }
   .map-filters button {
-    font-size: 7px;
+    font-size: 11px;
     padding: 8px 10px;
   }
   .neighbourhood-map {
@@ -4562,7 +4562,7 @@ input:focus {
   }
   .comparison-panel thead th {
     min-width: 165px;
-    font-size: 8px;
+    font-size: 12px;
     padding: 17px 12px;
   }
   .comparison-panel tbody th,
@@ -4683,7 +4683,7 @@ input:focus {
     font-size: 9px;
   }
   .map-filters button {
-    font-size: 6px;
+    font-size: 11px;
     padding: 7px 8px;
   }
   .ownership-panel {
