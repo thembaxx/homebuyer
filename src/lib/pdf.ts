@@ -1,3 +1,4 @@
+import { assumptionEvidenceReport } from './assumption-evidence';
 import { rand, type SavedReport } from './budget';
 import { distanceKm, distanceLabel, sources } from './data';
 import { comparisonRows, reportSnapshot } from './reports';
@@ -87,6 +88,9 @@ export async function buildReportDocument(reports: SavedReport[], comparison = f
       `Commute: ${b.destination || 'destination not specified'}, ${b.commuteKm} km one way, ${b.workdays} days/month, R${b.costPerKm.toFixed(2)}/km. Distance and costs are assumptions; no traffic-time estimate.`,
       9,
     );
+    line('Your assumption sources and unresolved figures', 17);
+    for (const evidenceLine of assumptionEvidenceReport(report.assumptionEvidence, b).split('\n'))
+      if (evidenceLine) line(evidenceLine, 9);
     line('Interest-rate scenarios', 17);
     for (const scenario of snapshot.scenarios) {
       line(
