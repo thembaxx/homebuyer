@@ -9,6 +9,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
   const host = useRef<HTMLDivElement>(null);
   const sceneState = useRef<{
     roof: THREE.Group;
+    streetContext: THREE.Group;
     windows: THREE.MeshPhysicalMaterial;
     light: THREE.DirectionalLight;
     ambient: THREE.HemisphereLight;
@@ -16,6 +17,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
   } | null>(null);
   const [night, setNight] = useState(false);
   const [cutaway, setCutaway] = useState(false);
+  const [street, setStreet] = useState(false);
   const [failed, setFailed] = useState(false);
   useEffect(() => {
     if (!host.current) return;
@@ -160,7 +162,21 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
     }
     box(0.8, 0.65, 0.35, wood, -1.4, 0.38, -0.2);
     box(1.6, 0.12, 0.8, plaster, -0.5, 0.16, -0.1);
-    sceneState.current = { roof, windows: glass, light, ambient, controls };
+    // Conceptual neighbourhood context only: not a survey, safety score or property data.
+    const streetContext = new THREE.Group();
+    streetContext.visible = false;
+    house.add(streetContext);
+    box(11.8, 0.045, 1.15, dark, 0, -0.26, 5.1, streetContext);
+    for (const x of [-3.4, -1.2, 1.1, 3.3]) {
+      box(0.55, 0.015, 0.045, paving, x, -0.231, 5.1, streetContext);
+    }
+    for (const x of [-6.6, 6.6]) {
+      box(2.2, 0.12, 3.2, lawn, x, -0.15, -0.6, streetContext);
+      box(1.55, 1.12, 1.6, plaster, x, 0.44, -0.6, streetContext);
+      box(1.8, 0.13, 1.9, stone, x, 1.07, -0.6, streetContext);
+      box(0.44, 0.52, 0.035, glass, x, 0.52, 0.23, streetContext);
+    }
+    sceneState.current = { roof, streetContext, windows: glass, light, ambient, controls };
     const resize = () => {
       const { width, height } = el.getBoundingClientRect();
       renderer.setSize(width, height);
@@ -211,6 +227,13 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
   useEffect(() => {
     if (sceneState.current) sceneState.current.roof.visible = !cutaway;
   }, [cutaway]);
+  useEffect(() => {
+    const current = sceneState.current;
+    if (!current) return;
+    current.streetContext.visible = street;
+    current.controls.object.position.set(...(street ? [15, 11, 17] as const : [10, 8, 11] as const));
+    current.controls.update();
+  }, [street]);
   return (
     <div className={`house-scene ${hero ? 'hero-scene' : ''} ${night ? 'night' : ''}`}>
       <div
@@ -227,9 +250,18 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
       )}
       <div className="scene-caption">
         <Cursor size={14} />
-        Drag to explore<span>Concept model</span>
+        Drag to explore<span>{street ? 'Illustrative street context' : 'Concept model'}</span>
       </div>
       <div className="scene-controls">
+        <button
+          className={street ? 'selected' : ''}
+          onClick={() => setStreet((value) => !value)}
+          aria-label={street ? 'Hide illustrative street context' : 'Show illustrative street context'}
+          aria-pressed={street}
+          title="Illustrative surroundings, not real property data"
+        >
+          Street
+        </button>
         <button
           className={night ? 'selected' : ''}
           onClick={() => setNight((v) => !v)}
@@ -251,6 +283,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
             sceneState.current?.controls.reset();
             setNight(false);
             setCutaway(false);
+            setStreet(false);
           }}
           aria-label="Reset model"
         >
