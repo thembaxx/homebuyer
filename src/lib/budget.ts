@@ -1,3 +1,4 @@
+import type { AssumptionEvidence } from './assumption-evidence';
 import type { Property } from './data';
 import type { ReportSnapshot } from './reports';
 
@@ -30,6 +31,7 @@ export type SavedReport = {
   savedAt: string;
   checked: number[];
   snapshot?: ReportSnapshot;
+  assumptionEvidence?: AssumptionEvidence[];
 };
 export const rand = (value: number) =>
   `R${Math.round(value).toLocaleString('en-ZA').replace(/,/g, ' ')}`;

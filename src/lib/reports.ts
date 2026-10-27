@@ -12,6 +12,8 @@ import crime from './crime-snapshot.json';
 import { indicatorDefinitions, municipalSnapshot } from './municipal-evidence';
 import { purchaseCosts, transferDutyEvidence, upfrontFields } from './purchase-costs';
 
+import { parseAssumptionEvidence, type AssumptionEvidence } from './assumption-evidence';
+
 export type ReportSnapshot = {
   version: 1;
   calculationVersion: 'ownership-v1';
@@ -36,6 +38,7 @@ export function createReport(
   budget: Budget,
   checked: number[],
   now = Date.now(),
+  assumptionEvidence: AssumptionEvidence[] = [],
 ): SavedReport {
   if (!isBudget(budget)) throw new RangeError('Invalid report budget');
   const capturedAt = new Date(now).toISOString();
@@ -48,6 +51,7 @@ export function createReport(
     budget: datedBudget,
     checked,
     savedAt: capturedAt,
+    assumptionEvidence: parseAssumptionEvidence(assumptionEvidence),
     snapshot: {
       version: 1,
       calculationVersion: 'ownership-v1',
@@ -138,6 +142,11 @@ export function restoreReports(raw: unknown): SavedReport[] {
       !r.checked.every((i) => Number.isInteger(i) && i >= 0 && i < checklist.length)
     )
       return false;
+    try {
+      parseAssumptionEvidence(r.assumptionEvidence);
+    } catch {
+      return false;
+    }
     if (r.snapshot === undefined) return true;
     // A partial or future snapshot must not be passed to PDF/comparison code.
     const s = r.snapshot;

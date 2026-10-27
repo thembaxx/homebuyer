@@ -70,6 +70,9 @@ import { findNearbyPlaces } from '@/lib/places';
 import { MunicipalEvidencePanel } from './municipal-evidence-panel';
 import { PurchaseCostsPanel } from './purchase-costs-panel';
 
+import { AssumptionEvidencePanel } from './assumption-evidence';
+import { parseAssumptionEvidence, type AssumptionEvidence } from '@/lib/assumption-evidence';
+
 const NeighbourhoodMap = dynamic(
   () => import('./neighbourhood-map').then((m) => m.NeighbourhoodMap),
   { ssr: false },
@@ -89,6 +92,7 @@ export function ReportWorkspace() {
   const [property, setProperty] = useState<Property>(properties[0]);
   const [budget, setBudget] = useState<Budget>(defaultBudget(properties[0]));
   const [saved, setSaved] = useState<SavedReport[]>([]);
+  const [assumptionEvidence, setAssumptionEvidence] = useState<AssumptionEvidence[]>([]);
   const [checked, setChecked] = useState<number[]>([]);
   const [tab, setTab] = useState<Tab>('overview');
   const [view, setView] = useState<View>('report');
@@ -185,6 +189,7 @@ export function ReportWorkspace() {
     setOpenedSavedAt(null);
     setBudget(defaultBudget(p));
     setChecked([]);
+    setAssumptionEvidence([]);
     setFilter('all');
     setPlacesLoading(false);
     setPlacesUnavailable(false);
@@ -207,7 +212,7 @@ export function ReportWorkspace() {
     }
   }, []);
   const save = () => {
-    const report = createReport(property, budget, checked);
+    const report = createReport(property, budget, checked, Date.now(), assumptionEvidence);
     setBudget(report.budget);
     setOpenedSavedAt(report.savedAt);
     const exists = saved.some((r) => r.property.id === property.id);
@@ -218,7 +223,9 @@ export function ReportWorkspace() {
           : 'Home saved. Your numbers are ready to compare.',
       );
   };
-  const exportPdf = async (report: SavedReport = createReport(property, budget, checked)) => {
+  const exportPdf = async (
+    report: SavedReport = createReport(property, budget, checked, Date.now(), assumptionEvidence),
+  ) => {
     setExporting(true);
     try {
       await downloadReport(report);
@@ -824,6 +831,12 @@ export function ReportWorkspace() {
                 )}
                 {tab === 'evidence' && (
                   <>
+                    <AssumptionEvidencePanel
+                      key={property.id}
+                      budget={budget}
+                      value={assumptionEvidence}
+                      onChange={setAssumptionEvidence}
+                    />
                     <div className="evidence-intro">
                       <ShieldCheck size={28} weight="light" />
                       <div>
@@ -1031,6 +1044,7 @@ export function ReportWorkspace() {
                             setOpenedSavedAt(r.savedAt);
                             setBudget(r.budget);
                             setChecked(r.checked);
+                            setAssumptionEvidence(parseAssumptionEvidence(r.assumptionEvidence));
                             navigate('report', 'overview');
                           }}
                         >
