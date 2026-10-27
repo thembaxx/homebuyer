@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowsClockwise, Sun, Moon, Cube, Cursor } from '@phosphor-icons/react';
+import { ArrowsClockwise, Sun, Moon, Cube, Cursor, Buildings } from '@phosphor-icons/react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -260,7 +260,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
           aria-pressed={street}
           title="Illustrative surroundings, not real property data"
         >
-          Street
+          <Buildings size={20} />
         </button>
         <button
           className={night ? 'selected' : ''}
