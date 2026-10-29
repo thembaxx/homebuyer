@@ -30,26 +30,30 @@ await mkdir('test-results', { recursive: true });
 
 try {
   await page.goto(`${base}/check/?tab=evidence`, { waitUntil: 'networkidle' });
+  const municipalPanel = page.locator('.municipal-panel').filter({
+    has: page.getByText('MUNICIPAL FINANCES', { exact: true }),
+  });
   await page.waitForSelector('.municipal-indicator');
-  assert.equal(await page.locator('.municipal-indicator').count(), 7);
+  assert.equal(await municipalPanel.count(), 1);
+  assert.equal(await municipalPanel.locator('.municipal-indicator').count(), 7);
   assert.ok(
-    (await page.locator('.municipal-panel').textContent()).includes(
+    (await municipalPanel.textContent()).includes(
       `${snapshot.municipalities.CPT.indicators.cash_coverage.values[0].value.toFixed(1)} months`,
     ),
   );
   const latestAudit = snapshot.municipalities.CPT.audits[0].year;
   assert.ok(
-    (await page.locator('.municipal-panel').textContent()).includes(
+    (await municipalPanel.textContent()).includes(
       `FY ${latestAudit - 1}/${String(latestAudit).slice(-2)}`,
     ),
   );
   await page.getByText('Audit history & original reports', { exact: true }).click();
   assert.equal(
-    await page.locator('.municipal-panel details').first().locator('li').count(),
+    await municipalPanel.locator('details').first().locator('li').count(),
     snapshot.municipalities.CPT.audits.length,
   );
   assert.match(
-    await page.locator('.municipal-panel details a').first().getAttribute('href'),
+    await municipalPanel.locator('details a').first().getAttribute('href'),
     /^https:\/\/lg.treasury.gov.za\/supportingdocs\/CPT\//,
   );
   await page.screenshot({ path: 'test-results/enriched-evidence-desktop.png', fullPage: true });
@@ -141,11 +145,11 @@ try {
     await page.waitForSelector('.municipal-indicator');
     assert.equal(await page.locator('.municipal-indicator').count(), 7);
     assert.match(
-      await page.locator('.municipal-panel').textContent(),
+      await municipalPanel.textContent(),
       /Confirm the municipal boundary/,
     );
     assert.equal(
-      await page.locator('.municipal-panel > .source-link').getAttribute('href'),
+      await municipalPanel.locator(':scope > .source-link').getAttribute('href'),
       snapshot.municipalities[code].source,
     );
     assert.equal(
