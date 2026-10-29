@@ -144,10 +144,7 @@ try {
     await page.goto(`${base}/check/?tab=evidence`, { waitUntil: 'networkidle' });
     await page.waitForSelector('.municipal-indicator');
     assert.equal(await page.locator('.municipal-indicator').count(), 7);
-    assert.match(
-      await municipalPanel.textContent(),
-      /Confirm the municipal boundary/,
-    );
+    assert.match(await municipalPanel.textContent(), /Confirm the municipal boundary/);
     assert.equal(
       await municipalPanel.locator(':scope > .source-link').getAttribute('href'),
       snapshot.municipalities[code].source,
