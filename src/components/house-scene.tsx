@@ -231,7 +231,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
     const current = sceneState.current;
     if (!current) return;
     current.streetContext.visible = street;
-    current.controls.object.position.set(...(street ? [15, 11, 17] as const : [10, 8, 11] as const));
+    current.controls.object.position.set(street ? 15 : 10, street ? 11 : 8, street ? 17 : 11);
     current.controls.update();
   }, [street]);
   return (
@@ -256,7 +256,9 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
         <button
           className={street ? 'selected' : ''}
           onClick={() => setStreet((value) => !value)}
-          aria-label={street ? 'Hide illustrative street context' : 'Show illustrative street context'}
+          aria-label={
+            street ? 'Hide illustrative street context' : 'Show illustrative street context'
+          }
           aria-pressed={street}
           title="Illustrative surroundings, not real property data"
         >
