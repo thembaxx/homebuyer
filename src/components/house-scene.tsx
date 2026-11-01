@@ -11,6 +11,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
     roof: THREE.Group;
     streetContext: THREE.Group;
     windows: THREE.MeshPhysicalMaterial;
+    lamps: THREE.MeshStandardMaterial;
     light: THREE.DirectionalLight;
     ambient: THREE.HemisphereLight;
     controls: OrbitControls;
@@ -128,6 +129,17 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
     box(1.15, 0.18, 0.14, plaster, -1.2, 0.4, 1.9);
     box(0.7, 0.16, 0.5, wood, 0.35, 0.25, 1.6);
     box(1.85, 0.08, 2.1, stone, 2.2, 0.01, 1.55);
+    // Subtle arrival-path lighting; illustrative, not property-specific information.
+    const lamps = new THREE.MeshStandardMaterial({
+      color: '#fff0bb',
+      emissive: '#eecb84',
+      emissiveIntensity: 0.12,
+      roughness: 0.38,
+    });
+    for (const x of [-1.9, 0.7]) {
+      box(0.085, 0.32, 0.085, dark, x, 0.16, 2.3);
+      box(0.13, 0.11, 0.13, lamps, x, 0.375, 2.3);
+    }
     const water = new THREE.MeshPhysicalMaterial({
       color: '#83b6a5',
       roughness: 0.1,
@@ -198,7 +210,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
       box(1.8, 0.13, 1.9, stone, x, 1.07, -0.6, streetContext);
       box(0.44, 0.52, 0.035, glass, x, 0.52, 0.23, streetContext);
     }
-    sceneState.current = { roof, streetContext, windows: glass, light, ambient, controls };
+    sceneState.current = { roof, streetContext, windows: glass, lamps, light, ambient, controls };
     const resize = () => {
       const { width, height } = el.getBoundingClientRect();
       renderer.setSize(width, height);
@@ -245,6 +257,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
     s.light.intensity = night ? 0.55 : 4;
     s.ambient.intensity = night ? 0.8 : 2.4;
     s.windows.emissiveIntensity = night ? 1.8 : 0.12;
+    s.lamps.emissiveIntensity = night ? 2.2 : 0.12;
   }, [night]);
   useEffect(() => {
     if (sceneState.current) sceneState.current.roof.visible = !cutaway;
