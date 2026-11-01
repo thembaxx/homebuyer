@@ -33,9 +33,8 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
       setFailed(true);
       return;
     }
-    renderer.setPixelRatio(
-      Math.min(window.devicePixelRatio || 1, window.matchMedia('(max-width: 760px), (pointer: coarse)').matches ? 1 : 1.5),
-    );
+    const lowPower = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1 : 1.5));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setClearColor(0x000000, 0);
@@ -152,11 +151,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
       canopy.castShadow = true;
       house.add(canopy);
       // A single instanced canopy adds smaller, varied foliage clusters without extra draw calls.
-      const clusters = new THREE.InstancedMesh(
-        new THREE.IcosahedronGeometry(0.2 * s, 1),
-        leaf,
-        9,
-      );
+      const clusters = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.2 * s, 1), leaf, 9);
       const dummy = new THREE.Object3D();
       for (let i = 0; i < 9; i++) {
         const angle = i * 2.3999632297;
