@@ -1,0 +1,44 @@
+name: Three.js r187 home scene QA
+on:
+  pull_request:
+    paths:
+      - "src/components/house-scene.tsx"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/three-r187-home-qa.yml"
+permissions:
+  contents: read
+jobs:
+  scene:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npx oxfmt --check src/components/house-scene.tsx
+      - run: npm run lint && npm run typecheck && npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Start production site
+        run: |
+          npm run start > /tmp/homebuyer-server.log 2>&1 &
+          for i in $(seq 1 45); do
+            if curl --silent --fail http://127.0.0.1:3000/ > /dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat /tmp/homebuyer-server.log
+          exit 1
+      - run: HOMEBUYER_CHROMIUM_PATH= node scripts/browser-smoke.mjs
+      - name: Preserve browser diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: homebuyer-r187-browser
+          path: test-results/
+          if-no-files-found: ignore
