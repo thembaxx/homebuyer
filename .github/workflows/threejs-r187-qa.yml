@@ -1,0 +1,37 @@
+name: Three.js r187 focused QA
+on:
+  pull_request:
+    paths:
+      - "src/components/house-scene.tsx"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/threejs-r187-qa.yml"
+permissions:
+  contents: read
+jobs:
+  house:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - run: npx oxfmt --check src/components/house-scene.tsx
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm run test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Browser smoke test on exported site
+        run: |
+          NO_UPDATE_CHECK=1 npx serve out --listen 3000 > "$RUNNER_TEMP/threejs-homebuyer.log" 2>&1 &
+          curl --fail --silent --retry 20 --retry-delay 1 --retry-connrefused --max-time 1 http://localhost:3000/ > /dev/null
+          npm run smoke:enrichment
+          npm run smoke:decision

@@ -33,7 +33,8 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
       setFailed(true);
       return;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+    const lowPower = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowPower ? 1 : 1.5));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setClearColor(0x000000, 0);
@@ -149,6 +150,27 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
       canopy.position.set(x, 1.35 * s, z);
       canopy.castShadow = true;
       house.add(canopy);
+      // A single instanced canopy adds smaller, varied foliage clusters without extra draw calls.
+      const clusters = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.2 * s, 1), leaf, 9);
+      const dummy = new THREE.Object3D();
+      for (let i = 0; i < 9; i++) {
+        const angle = i * 2.3999632297;
+        const spread = 0.26 * s * (0.6 + (i % 3) * 0.18);
+        dummy.position.set(
+          x + Math.cos(angle) * spread,
+          1.45 * s + Math.sin(i * 1.7) * 0.29 * s,
+          z + Math.sin(angle) * spread,
+        );
+        dummy.scale.setScalar(0.75 + (i % 3) * 0.15);
+        dummy.updateMatrix();
+        clusters.setMatrixAt(i, dummy.matrix);
+        clusters.setColorAt(i, new THREE.Color(i % 2 ? '#a3c596' : '#7eaa7c'));
+      }
+      clusters.instanceMatrix.needsUpdate = true;
+      if (clusters.instanceColor) clusters.instanceColor.needsUpdate = true;
+      clusters.computeBoundingSphere();
+      clusters.castShadow = true;
+      house.add(clusters);
     };
     tree(-3.3, -2.4, 1.3);
     tree(3.3, -2.3, 1.05);
