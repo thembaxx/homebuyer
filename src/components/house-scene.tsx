@@ -34,7 +34,7 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
       setFailed(true);
       return;
     }
-    const compactScreen = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
+    const compactScreen = window.matchMedia('(max-width: 760px), (pointer: coarse)').matches;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compactScreen ? 1.25 : 1.75));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -131,8 +131,8 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
     box(1.85, 0.08, 2.1, stone, 2.2, 0.01, 1.55);
     // Small architectural bollards provide a readable night-time arrival path.
     const lamps = new THREE.MeshStandardMaterial({
-      color: "#fff0bb",
-      emissive: "#eecb84",
+      color: '#fff0bb',
+      emissive: '#eecb84',
       emissiveIntensity: 0.12,
       roughness: 0.38,
     });
