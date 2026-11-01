@@ -1,0 +1,44 @@
+name: HomeBuyer r187 3D browser QA
+on:
+  push:
+    branches: ["feat/r187-architectural-night-lighting-v2"]
+  pull_request:
+    paths:
+      - "src/components/house-scene.tsx"
+      - ".github/workflows/r187-home-browser.yml"
+permissions:
+  contents: read
+jobs:
+  scene:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+      - run: npm ci
+      - run: npx oxfmt --check src/components/house-scene.tsx
+      - run: npm run lint && npm run typecheck && npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Start production site
+        run: |
+          npm run start > /tmp/homebuyer.log 2>&1 &
+          for i in $(seq 1 45); do
+            if curl --silent --fail http://127.0.0.1:3000/ > /dev/null; then exit 0; fi
+            sleep 2
+          done
+          cat /tmp/homebuyer.log
+          exit 1
+      - run: HOMEBUYER_CHROMIUM_PATH= node scripts/browser-smoke.mjs
+      - name: Upload screenshots if needed
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: homebuyer-r187-browser-qa
+          path: test-results/
+          if-no-files-found: ignore
