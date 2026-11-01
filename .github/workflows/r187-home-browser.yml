@@ -1,11 +1,11 @@
 name: HomeBuyer r187 3D browser QA
 on:
   push:
-    branches: ["feat/r187-architectural-night-lighting-v2"]
+    branches: ['feat/r187-architectural-night-lighting-v2']
   pull_request:
     paths:
-      - "src/components/house-scene.tsx"
-      - ".github/workflows/r187-home-browser.yml"
+      - 'src/components/house-scene.tsx'
+      - '.github/workflows/r187-home-browser.yml'
 permissions:
   contents: read
 jobs:
@@ -18,7 +18,7 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
-          node-version: "24"
+          node-version: '24'
           cache: npm
       - run: npm ci
       - run: npx oxfmt --check src/components/house-scene.tsx
