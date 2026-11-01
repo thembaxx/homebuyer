@@ -34,9 +34,8 @@ export function HouseScene({ hero = false }: { hero?: boolean }) {
       setFailed(true);
       return;
     }
-    renderer.setPixelRatio(
-      Math.min(window.devicePixelRatio || 1, window.matchMedia("(max-width: 760px), (pointer: coarse)").matches ? 1.25 : 1.75),
-    );
+    const compactScreen = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compactScreen ? 1.25 : 1.75));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setClearColor(0x000000, 0);
