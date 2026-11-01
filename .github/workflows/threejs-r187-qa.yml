@@ -2,10 +2,10 @@ name: Three.js r187 focused QA
 on:
   pull_request:
     paths:
-      - "src/components/house-scene.tsx"
-      - "package.json"
-      - "package-lock.json"
-      - ".github/workflows/threejs-r187-qa.yml"
+      - 'src/components/house-scene.tsx'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/threejs-r187-qa.yml'
 permissions:
   contents: read
 jobs:
@@ -21,7 +21,7 @@ jobs:
           cache: npm
       - uses: actions/setup-python@v7
         with:
-          python-version: "3.12"
+          python-version: '3.12'
       - run: npm ci
       - run: npx oxfmt --check src/components/house-scene.tsx
       - run: npm run typecheck
