@@ -68,9 +68,13 @@
   background: transparent;
   color: var(--theme-text-muted);
 }
-.theme-popover button:hover,
 .theme-popover button[aria-pressed='true'] {
   background: var(--theme-control);
+}
+@media (hover: hover) and (pointer: fine) {
+  .theme-popover button:hover {
+    background: var(--theme-control);
+  }
 }
 .theme-popover button > span {
   flex: 1;
@@ -299,20 +303,26 @@
   background: var(--lime);
   color: #28361c;
 }
-:root[data-theme='dark'] :is(.button.dark:hover, .search-submit:hover) {
-  background: #cbe691;
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme='dark'] :is(.button.dark:hover, .search-submit:hover) {
+    background: #cbe691;
+  }
 }
 :root[data-theme='dark'] .button.outline {
   color: #e5eccf;
   box-shadow: inset 0 0 0 1px #607349;
   background: transparent;
 }
-:root[data-theme='dark'] .button.outline:hover {
-  background: #334129;
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme='dark'] .button.outline:hover {
+    background: #334129;
+  }
 }
-:root[data-theme='dark']
-  :is(.search-result:hover, .header-saved:hover, .sidebar nav > button:hover) {
-  background: #344229;
+@media (hover: hover) and (pointer: fine) {
+  :root[data-theme='dark']
+    :is(.search-result:hover, .header-saved:hover, .sidebar nav > button:hover) {
+    background: #344229;
+  }
 }
 :root[data-theme='dark'] .floating-evidence {
   background: #273322ed;
