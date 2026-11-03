@@ -106,8 +106,10 @@
   color: var(--theme-text-muted);
   line-height: 1.8;
 }
-.article-aside nav a:hover {
-  color: var(--ink);
+@media (hover: hover) and (pointer: fine) {
+  .article-aside nav a:hover {
+    color: var(--ink);
+  }
 }
 .article-callout {
   background: var(--theme-soft);
