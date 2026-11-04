@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   applicationName: brand.productName,
   category: 'property due diligence',
   manifest: '/manifest.webmanifest',
-  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: brand.name },
+  appleWebApp: { capable: true, statusBarStyle: 'default', title: brand.name },
   formatDetection: { telephone: false },
   icons: {
     icon: '/icon.svg',
