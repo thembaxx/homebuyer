@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   applicationName: brand.productName,
   category: 'property due diligence',
   manifest: '/manifest.webmanifest',
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: brand.name },
+  formatDetection: { telephone: false },
   icons: {
     icon: '/icon.svg',
     apple: [{ url: '/icons/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
@@ -34,7 +36,16 @@ export const metadata: Metadata = {
     },
   },
 };
-export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  colorScheme: 'light dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f5f4ee' },
+    { media: '(prefers-color-scheme: dark)', color: '#121810' },
+  ],
+};
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
